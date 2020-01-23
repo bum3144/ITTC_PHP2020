@@ -7,10 +7,6 @@
     <title>test</title>
 </head>
 <body>
-    <?php
-        $roll = rand(1, 6);
-
-        echo 'random number is : ' . $roll;
-    ?>
+    test
 </body>
 </html>
