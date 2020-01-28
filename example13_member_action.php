@@ -8,7 +8,7 @@
 </head>
 <body>
     <?php
-        $userid = $_GET[userid];
+        $userid = $_POST[userid];
         $userpw = $_GET[userpw];
         $userpw2 = $_GET[userpw2];
         $firstname = $_GET[firstname];
