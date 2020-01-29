@@ -9,14 +9,23 @@
 <body>
     <?php
         $userid = $_POST[userid];
-        $userpw = $_GET[userpw];
-        $userpw2 = $_GET[userpw2];
-        $firstname = $_GET[firstname];
-        $middlename = $_GET[middlename];
-        $lastname = $_GET[lastname];
-        $birth = $_GET[birth];
-        $address = $_GET[address];
-        $post  = $_GET[post];
+        $userpw = $_POST[userpw];
+        $userpw2 = $_POST[userpw2];
+        $firstname = $_POST[firstname];
+        $middlename = $_POST[middlename];
+        $lastname = $_POST[lastname];
+        $birth = $_POST[birth];
+        $address = $_POST[address];
+        $post  = $_POST[post];
+
+        $pdo = new PDO('mysql:host=localhost;dbname=test', 'root', 'zxcv1234');
+
+        $stmt = $pdo->prepare('INSERT INTO example13_member (
+            userid, password, firstname, middlename, lastname, birthday, address, post
+        ) VALUES (
+            ?, ?, ?, ?, ?, ?, ?, ?
+        )');
+        $stmt->execute([ $userid, $userpw, $firstname, $middlename, $lastname, $birth, $address, $post ]);
 
         echo 'USER ID : ' . $userid .'<br>';
         echo 'PASSWORD : ' . $userpw .'<br>';
