@@ -8,6 +8,7 @@
 </head>
 <body>
     <?php
+        $id = $_POST['id'];
         $userid = $_POST[userid];
         $userpw = $_POST[userpw];
         $userpw2 = $_POST[userpw2];
@@ -20,13 +21,46 @@
 
         $pdo = new PDO('mysql:host=localhost;dbname=test', 'root', 'zxcv1234');
 
-        $stmt = $pdo->prepare('INSERT INTO example13_member (
-            userid, password, firstname, middlename, lastname, birthday, address, post
-        ) VALUES (
-            ?, ?, ?, ?, ?, ?, ?, ?
-        )');
-        $stmt->execute([ $userid, $userpw, $firstname, $middlename, $lastname, $birth, $address, $post ]);
-
+        if ($id) {
+            // edit record
+            $sql = 'UPDATE example13_member
+                SET userid = :userid,
+                firstname = :firstname,
+                middlename = :middlename,
+                lastname = :lastname,
+                birthday = :birthday,
+                address = :address,
+                post = :post';
+            if ($userpw) {
+                $sql .= ',password = :password';
+            }
+            $sql .= ' WHERE id = :id';
+            $stmt = $pdo->prepare($sql);
+            $params = [
+                'userid' => $userid,
+                'firstname' => $firstname,
+                'middlename' => $middlename,
+                'lastname' => $lastname,
+                'birthday' => $birth,
+                'address' => $address,
+                'post' => $post,
+                'id' => $id,
+            ];
+            if ($userpw) {
+                $params['password'] = $userpw;
+            }
+            $stmt->execute($params);
+        } else {
+            // create new record
+            $stmt = $pdo->prepare('INSERT INTO example13_member (
+                userid, password, firstname, middlename, lastname, birthday, address, post
+            ) VALUES (
+                ?, ?, ?, ?, ?, ?, ?, ?
+            )');
+            $stmt->execute([ $userid, $userpw, $firstname, $middlename, $lastname, $birth, $address, $post ]);
+    
+        }
+        print_r($stmt->errorInfo());
         echo 'USER ID : ' . $userid .'<br>';
         echo 'PASSWORD : ' . $userpw .'<br>';
         echo 'PASSWORD CHECK : ' . $userpw2 .'<br>';

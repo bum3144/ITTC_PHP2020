@@ -24,5 +24,6 @@ echo 'BIRTHDAY : ' . $item['birthday'] .'<br>';
 echo 'ADDRESS : ' . $item['address'] .'<br>';
 echo 'POST NUMBER : ' . $item['post'] .'<br>';
     ?>
+    <a href="example13_member.php?id=<?=$item['id'] ?>">Edit</a>
 </body>
 </html>
