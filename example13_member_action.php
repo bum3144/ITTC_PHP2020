@@ -71,5 +71,6 @@
         echo 'ADDRESS : ' . $address .'<br>';
         echo 'POST NUMBER : ' . $post .'<br>';
     ?>
+    <a href="example13_list.php">Go to List</a>
 </body>
 </html>

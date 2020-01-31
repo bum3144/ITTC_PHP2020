@@ -14,6 +14,7 @@ $stmt = $pdo->prepare('SELECT * FROM example13_member');
 $stmt->execute();
 $list = $stmt->fetchAll();
     ?>
+    <a href="example13_member.php">Create Member</a>
     <table>
         <thead>
             <tr>
