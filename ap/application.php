@@ -47,7 +47,7 @@
             </div>
         </div>
 
-        <form method="get" action="#" name="applyform">
+        <form method="post" action="application_action.php" name="applyform" enctype="multipart/form-data">
         <div class="row">
             <div class="part col-12"> 
                 <hr>
@@ -79,7 +79,7 @@
                 <label>Cellphone Number :</label> <input type="number" name="cellphone" id="issuedate" maxlength="13"><br>
                 <label>Address :</label> <input type="text" name="address" size="60"><br>
                 <label>Birthday :</label> <input type="date" name="birthday" id="birthday">&nbsp;&nbsp;&nbsp;&nbsp;
-                <label>Age :</label> <input type="number" name="age" id="age" disabled><br>
+                <label>Age :</label> <input type="number" name="age" id="age"><br>
 
                 <script>                
 
@@ -110,8 +110,8 @@
                 <label>Civil Status :</label> <input type="text" name="civil" size="40" placeholder="your country"> <br>
                 <label>Name of Spouse (If married) :</label> <input type="text" name="spouse"> <br>
                 <label>Number of Children (If have) :</label> <input type="number" name="children"> <br>
-                <label>Religious Affiliation :</label> <input type="number" name="religious"> <br>
-                <label>Name of Pastor :</label> <input type="number" name="pastor"> <br>
+                <label>Religious Affiliation :</label> <input type="text" name="religious"> <br>
+                <label>Name of Pastor :</label> <input type="text" name="pastor"> <br>
                 
             </div>
             
@@ -152,7 +152,7 @@
                 NO <input type="radio" name="employed" value="n"> <br>
 
                 <label>5. (4 - If yes) Name of Company? </label>  <br>
-                Company <input type="text" name="company" placeholder="Company Name"> Position <input type="text" name="position" placeholder="Your position"> <br>
+                Company <input type="text" name="company" placeholder="Company Name"> Position <input type="text" name="position" placeholder="position"> <br>
 
             </div>
 
