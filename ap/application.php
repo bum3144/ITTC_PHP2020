@@ -75,11 +75,11 @@
                 </script>
                 
                 
-                <label>Name :</label> <input type="text" name="uname" size="40" placeholder="full name"><br>
+                <label>Name :</label> <input type="text" name="uname" size="40" placeholder="full name" required><br>
                 <label>Cellphone Number :</label> <input type="number" name="cellphone" id="issuedate" maxlength="13"><br>
-                <label>Address :</label> <input type="text" name="address" size="60"><br>
-                <label>Birthday :</label> <input type="date" name="birthday" id="birthday">&nbsp;&nbsp;&nbsp;&nbsp;
-                <label>Age :</label> <input type="number" name="age" id="age"><br>
+                <label>Address :</label> <input type="text" name="address" size="60"><br>      
+                <label>Birthday :</label> <input type="date" name="birthday" id="birthday">&nbsp;&nbsp;&nbsp;&nbsp;&gt;&lt;&quot;&#13;
+                <label>Age :</label> <input type="number" name="age" id="age" min="20" max="30"><br>
 
                 <script>                
 
