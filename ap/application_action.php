@@ -2,18 +2,26 @@
         // file
         // $uploads_dir = ' ';
         // $img_select = $_FILES['img_select']['name'];
-        ini_set("display_errors", "1");
-        $uploaddir = '/home/parks/Downloads/uploads/';      
-        $uploadfile = $uploaddir . basename($_FILES['img_select']['name']);      
-
-        // print_r($_FILES);   
-
-        if (move_uploaded_file($_FILES['img_select']['tmp_name'], $uploadfile)) {        
-          //  echo "file upload success.";        
-        } else {        
-            echo 'files infomation:';        
-            print_r($_FILES);      
-        }        
+        //ini_set("display_errors", "1");
+        $filepath = null;
+        if ($_FILES['img_select']['error'] === UPLOAD_ERR_OK) {
+            $uploaddir = $_SERVER['DOCUMENT_ROOT'].'/uploads/';      
+            $uploadfile = $uploaddir . basename($_FILES['img_select']['name']);    
+            
+            if (!is_dir($uploaddir)) {
+                mkdir($uploaddir);
+            }
+    
+            // print_r($_FILES);   
+    
+            if (move_uploaded_file($_FILES['img_select']['tmp_name'], $uploadfile)) {        
+              //  echo "file upload success.";
+              $filepath = '/uploads/'.basename($_FILES['img_select']['name']);
+            } else {        
+                echo 'files infomation:';        
+                print_r($_FILES);      
+            }
+        }       
         
 
         $uname = $_POST['uname'];
@@ -110,8 +118,8 @@
                 birthday = :birthday,
                 address = :address,
                 post = :post';
-            if ($userpw) {
-                $sql .= ',password = :password';
+            if ($filepath) {
+                $sql .= ',Image = :image';
             }
             $sql .= ' WHERE id = :id';
             $stmt = $pdo->prepare($sql);
@@ -125,18 +133,18 @@
                 'post' => $post,
                 'id' => $id,
             ];
-            if ($userpw) {
-                $params['password'] = $userpw;
+            if ($filepath) {
+                $params['Image'] = $filepath;
             }
             $stmt->execute($params);
         } else {
             // create new record
             $stmt = $pdo->prepare('INSERT INTO example13_member (
-                userid, password, firstname, middlename, lastname, birthday, address, post
+                userid, password, firstname, middlename, lastname, birthday, address, post, Image
             ) VALUES (
-                ?, ?, ?, ?, ?, ?, ?, ?
+                ?, ?, ?, ?, ?, ?, ?, ?, ?
             )');
-            $stmt->execute([ $userid, $userpw, $firstname, $middlename, $lastname, $birth, $address, $post ]);
+            $stmt->execute([ $userid, $userpw, $firstname, $middlename, $lastname, $birth, $address, $post, $filepath ]);
     
         }
         print_r($stmt->errorInfo());
