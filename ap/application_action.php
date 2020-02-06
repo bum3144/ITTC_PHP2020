@@ -103,7 +103,7 @@
         if ($id) {
             // edit record
             $sql = 'UPDATE example13_member
-                SET userid = :userid,
+                SET uname = :uname,
                 firstname = :firstname,
                 middlename = :middlename,
                 lastname = :lastname,
