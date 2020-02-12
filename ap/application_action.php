@@ -61,7 +61,7 @@
         $ernumber  = $_POST['ernumber'];
 
        echo $uploadfile ."<br>";
-    //    echo $img_select ."<br>";
+
        echo $uname ."<br>";
        echo $cellphone ."<br>";
        echo $address ."<br>";
@@ -100,17 +100,11 @@
 
 
 
-
-        exit;
-
-
-
-
-        $pdo = new PDO('mysql:host=localhost;dbname=test', 'root', 'abde1245');
+        $pdo = new PDO('mysql:host=localhost;dbname=phpStudy', 'root', 'abde1245');
 
         if ($id) {
             // edit record
-            $sql = 'UPDATE example13_member
+            $sql = 'UPDATE application
                 SET uname = :uname,
                 firstname = :firstname,
                 middlename = :middlename,
@@ -139,15 +133,26 @@
             $stmt->execute($params);
         } else {
             // create new record
-            $stmt = $pdo->prepare('INSERT INTO example13_member (
-                userid, password, firstname, middlename, lastname, birthday, address, post, Image
+
+            $stmt = $pdo->prepare('INSERT INTO application (
+                upload, name, cellphone, address, birthday, age, gender, height, weight, civil, spouse, children, religious, pastor, elementary,
+                eyear, highschool, hyear, college, cyear, postgraduate, pyear, skills, literate, computeryear, computermonths, level, employed,
+                company, position, cname1, caddress1, cname2, caddress2, ename, enumber
             ) VALUES (
-                ?, ?, ?, ?, ?, ?, ?, ?, ?
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
             )');
-            $stmt->execute([ $userid, $userpw, $firstname, $middlename, $lastname, $birth, $address, $post, $filepath ]);
+
+            $stmt->execute([ 
+                $uploadfile, $uname, $cellphone, $address, $birthday, $age, $gender, $Height, $Weigth, $civil, $spouse, $children, $religious, $pastor, 
+                $elementary, $eyear, $highschool, $hyear, $college, $cyear, $postgraduate, $pyear, $skills, $literate, $useyear, $usemonth, $level, 
+                $employed, $company, $position, $rname1, $raddress1, $rname2, $raddress2, $ername, $ernumber
+            ]);
     
+    
+     
         }
         print_r($stmt->errorInfo());
+        
         echo 'USER ID : ' . $userid .'<br>';
         echo 'PASSWORD : ' . $userpw .'<br>';
         echo 'PASSWORD CHECK : ' . $userpw2 .'<br>';
