@@ -5,7 +5,8 @@
         //ini_set("display_errors", "1");
         $filepath = null;
         if ($_FILES['img_select']['error'] === UPLOAD_ERR_OK) {
-            $uploaddir = $_SERVER['DOCUMENT_ROOT'].'/uploads/';      
+            // $uploaddir = $_SERVER['DOCUMENT_ROOT'].'/uploads/';      
+            $uploaddir = '/uploads/';      
             $uploadfile = $uploaddir . basename($_FILES['img_select']['name']);    
             
             if (!is_dir($uploaddir)) {
@@ -23,15 +24,17 @@
             }
         }       
         
-
-        $uname = $_POST['uname'];
+// echo $uploadfile ; exit;
+// echo $filepath; exit;
+        $id = $_POST['id'];
+         $uname = $_POST['uname'];
         $cellphone = $_POST['cellphone'];
         $address = $_POST['address'];
         $birthday = $_POST['birthday'];
         $age = $_POST['age'];
         $gender = $_POST['gender'];
-        $Height = $_POST['Height'];
-        $Weigth = $_POST['Weigth'];
+        $height = $_POST['height'];
+        $weigth = $_POST['weigth'];
         $civil  = $_POST['civil'];
         $spouse  = $_POST['spouse'];
         $children  = $_POST['children'];
@@ -58,79 +61,98 @@
         $rname2  = $_POST['rname2'];
         $raddress2  = $_POST['raddress2'];
         $ername  = $_POST['ername'];
-        $ernumber  = $_POST['ernumber'];
-
-       echo $uploadfile ."<br>";
-
-       echo $uname ."<br>";
-       echo $cellphone ."<br>";
-       echo $address ."<br>";
-       echo $birthday ."<br>";
-       echo $age ."<br>";
-       echo $gender ."<br>";
-       echo $Height ."<br>";
-       echo $Weigth ."<br>";
-       echo $civil ."<br>";
-       echo $spouse ."<br>";
-       echo $children ."<br>";
-       echo $religious ."<br>";
-       echo $pastor ."<br>";
-       echo $elementary ."<br>";
-       echo $eyear ."<br>";
-       echo $highschool ."<br>";
-       echo $hyear ."<br>";
-       echo $college ."<br>";
-       echo $cyear ."<br>";
-       echo $postgraduate ."<br>";
-       echo $pyear ."<br>";
-       echo $skills ."<br>";
-       echo $literate ."<br>";
-       echo $useyear ."<br>";
-       echo $usemonth ."<br>";
-       echo $level ."<br>";
-       echo $employed ."<br>";
-       echo $company ."<br>";
-       echo $position ."<br>";
-       echo $rname1 ."<br>";
-       echo $raddress1 ."<br>";
-       echo $rname2 ."<br>";
-       echo $raddress2 ."<br>";
-       echo $ername ."<br>";
-       echo $ernumber ."<br>";
-
-
+        $ernumber  = $_POST['ernumber'];    
 
         $pdo = new PDO('mysql:host=localhost;dbname=phpStudy', 'root', 'abde1245');
 
         if ($id) {
             // edit record
             $sql = 'UPDATE application
-                SET uname = :uname,
-                firstname = :firstname,
-                middlename = :middlename,
-                lastname = :lastname,
-                birthday = :birthday,
+                SET name = :uname,
+                cellphone = :cellphone,
                 address = :address,
-                post = :post';
+                birthday = :birthday,
+                age = :age,
+                gender = :gender,
+                height = :height,
+                weight = :weight,
+                civil = :civil,
+                spouse = :spouse,
+                children = :children,
+                religious = :religious,
+                pastor = :pastor,
+                elementary = :elementary,
+                eyear = :eyear,
+                highschool = :highschool,
+                hyear = :hyear,
+                college = :college,
+                cyear = :cyear,
+                postgraduate = :postgraduate,
+                pyear = :pyear,
+                skills = :skills,
+                literate = :literate,
+                computeryear = :computeryear,
+                computermonths = :computermonths,
+                level = :level,
+                employed = :employed,
+                company = :company,
+                position = :position,
+                cname1 = :cname1,
+                caddress1 = :caddress1,
+                cname2 = :cname2,
+                caddress2 = :caddress2,
+                ename = :ename,
+                enumber = :enumber';
             if ($filepath) {
-                $sql .= ',Image = :image';
+                $sql .= ',upload = :upload';
             }
             $sql .= ' WHERE id = :id';
             $stmt = $pdo->prepare($sql);
             $params = [
-                'userid' => $userid,
-                'firstname' => $firstname,
-                'middlename' => $middlename,
-                'lastname' => $lastname,
-                'birthday' => $birth,
+                'uname' => $uname,
+                'cellphone' => $cellphone,
                 'address' => $address,
-                'post' => $post,
+                'birthday' => $birthday,
+                'age' => $age,
+                'gender' => $gender,
+                'height' => $height,
+                'weigth' => $weigth,
+                'civil' => $civil,
+                'spouse' => $spouse,
+                'children' => $children,
+                'religious' => $religious,
+                'pastor' => $pastor,
+                'elementary' => $elementary,
+                'eyear' => $eyear,
+                'highschool' => $highschool,
+                'hyear' => $hyear,
+                'college' => $college,
+                'cyear' => $cyear,
+                'postgraduate' => $postgraduate,
+                'pyear' => $pyear,
+                'skills' => $skills,
+                'literate' => $literate,
+                'computeryear' => $useyear,
+                   'computermonths' => $usemonth,
+                'level' => $level,
+                'employed' => $employed,
+                'company' => $company,
+                'position' => $position,
+                'cname1' => $rname1,
+                'caddress1' => $raddress1,
+                'cname2' => $rname2,
+                'caddress2' => $raddress2,
+                'ename' => $ername,
+                'enumber' => $ernumber,
                 'id' => $id,
             ];
             if ($filepath) {
-                $params['Image'] = $filepath;
+                $params['upload'] = $filepath;
             }
             $stmt->execute($params);
+
+
+
         } else {
             // create new record
 
@@ -143,7 +165,7 @@
             )');
 
             $stmt->execute([ 
-                $uploadfile, $uname, $cellphone, $address, $birthday, $age, $gender, $Height, $Weigth, $civil, $spouse, $children, $religious, $pastor, 
+                $uploadfile, $uname, $cellphone, $address, $birthday, $age, $gender, $height, $weigth, $civil, $spouse, $children, $religious, $pastor, 
                 $elementary, $eyear, $highschool, $hyear, $college, $cyear, $postgraduate, $pyear, $skills, $literate, $useyear, $usemonth, $level, 
                 $employed, $company, $position, $rname1, $raddress1, $rname2, $raddress2, $ername, $ernumber
             ]);
@@ -153,13 +175,4 @@
         }
         print_r($stmt->errorInfo());
         
-        echo 'USER ID : ' . $userid .'<br>';
-        echo 'PASSWORD : ' . $userpw .'<br>';
-        echo 'PASSWORD CHECK : ' . $userpw2 .'<br>';
-        echo 'FIRST NAME : ' . $firstname .'<br>';
-        echo 'MIDDLE NAME : ' . $middlename .'<br>';
-        echo 'LAST NAME : ' . $lastname .'<br>';
-        echo 'BIRTHDAY : ' . $birth .'<br>';
-        echo 'ADDRESS : ' . $address .'<br>';
-        echo 'POST NUMBER : ' . $post .'<br>';
     ?>
