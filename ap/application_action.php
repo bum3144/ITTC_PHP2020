@@ -5,8 +5,8 @@
         //ini_set("display_errors", "1");
         $filepath = null;
         if ($_FILES['img_select']['error'] === UPLOAD_ERR_OK) {
-            // $uploaddir = $_SERVER['DOCUMENT_ROOT'].'/uploads/';      
-            $uploaddir = '/uploads/';      
+            $uploaddir = $_SERVER['DOCUMENT_ROOT'].'/uploads/';      
+            // $uploaddir = '/uploads/';      
             $uploadfile = $uploaddir . basename($_FILES['img_select']['name']);    
             
             if (!is_dir($uploaddir)) {
@@ -25,9 +25,11 @@
         }       
         
 // echo $uploadfile ; exit;
-// echo $filepath; exit;
+// echo 'zzzzzz'.  $uploadfile .'<br><br><hr>';
+//  echo $filepath; exit;
+
         $id = $_POST['id'];
-         $uname = $_POST['uname'];
+        $uname = $_POST['uname'];
         $cellphone = $_POST['cellphone'];
         $address = $_POST['address'];
         $birthday = $_POST['birthday'];
@@ -133,7 +135,7 @@
                 'skills' => $skills,
                 'literate' => $literate,
                 'computeryear' => $useyear,
-                   'computermonths' => $usemonth,
+                'computermonths' => $usemonth,
                 'level' => $level,
                 'employed' => $employed,
                 'company' => $company,
