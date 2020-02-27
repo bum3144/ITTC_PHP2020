@@ -1,0 +1,29 @@
+Mysql Example 
+
+01. Create Database
+
+02. Add user
+
+03. user permission, schema
+
+04. sql command
+
+use ittc2020;
+SELECT * FROM news;
+
+
+* INSERT
+
+INSERT INTO news SET newsname = 'jeremy1', newstext = 'test news 01', newsdate = '2020-02-01';
+INSERT INTO news SET newsname = 'jeremy2', newstext = 'test news good 02', newsdate = '2020-02-02';
+INSERT INTO news SET newsname = 'jeremy3', newstext = 'test news good nice 03', newsdate = '2020-02-03';
+INSERT INTO news SET newsname = 'jeremy4', newstext = 'test news good nice win 04', newsdate = '2020-02-04';
+
+
+* SELECT 
+SELECT newsname FROM news;
+SELECT newsname, newstext FROM news;
+SELECT * FROM news WHERE newsdate = '2020-02-02';
+SELECT * FROM news WHERE id = 1;
+SELECT * FROM news WHERE newstext LIKE '%nice%';
+
