@@ -10,10 +10,11 @@
 
 try{
     $pdo = new PDO('mysql:host=localhost;dbname=ijdb', 'ijdbuser', 'mypassword');
-    $output = 'Connected successfully!';
+    $output = 'Connected successfully!!';
 }catch (PDOExeption $e){
-    $output = 'Connection failed!' . $e;
+    $output = 'Connection failed!!' . $e;
 }
 
-echo $output;
+//echo $output;
+include __DIR__ . '/output.html.php';
 ?>
