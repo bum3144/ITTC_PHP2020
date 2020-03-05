@@ -5,6 +5,8 @@
         <title>OUT PUT MESSAGE</title>
     </head>
     <body>
-       <h1> <?php echo $output; ?> </h1>
+
+        <?php echo $output; ?>
+        
     </body>
 </html>
