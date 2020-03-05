@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Alignment - float</title>
+    <style>
+        /* .boxA{ overflow: hidden;} */
+        .boxA:after{ 
+            content: ""; 
+            display: block; 
+            clear: both; }
+        .box1{ float: left; width: 25%; height: 200px; background-color: pink; }
+        .box2{ float: left; width: 25%; height: 200px; background-color: yellow; }
+        .box3{ float: left; width: 25%; height: 200px; background-color: blue; }
+        .box4{ float: left; width: 25%; height: 200px; background-color: green; }
+
+        /* 순서변경(Change order)
+        .box1{ float: left; width: 25%; height: 200px; background-color: pink; }
+        .box2{ float: right; width: 25%; height: 200px; background-color: yellow; }
+        .box3{ float: left; width: 25%; height: 200px; background-color: blue; }
+        .box4{ float: right; width: 25%; height: 200px; background-color: green; } */
+    </style>
+</head>
+<body>
+    <div class="boxA">
+        <div class="box1">BOX1</div>
+        <div class="box2">BOX2</div>
+        <div class="box3">BOX3</div>
+        <div class="box4">BOX4</div>
+    </div>
+</body>
+</html>
