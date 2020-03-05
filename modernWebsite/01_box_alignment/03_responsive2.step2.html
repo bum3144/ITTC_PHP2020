@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive web design 2</title>
+    <style>
+        .box1 {height: 100px; background-color: red;}
+        .box2 {height: 300px; background-color: yellow;}
+        .box3 {height: 300px; background-color: blue;}
+        .box4 {height: 300px; background-color: green;}
+
+        /* 1. */
+        .boxA:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+        .boxB { float: left; width: 80%; }        
+        .box4 { float: left; width: 20%; }
+
+        /* 2. inside boxB */
+        .boxB:after {
+            content: "";
+            display: block;
+        }
+        .box2 { float: left; width: 25%; }
+        .box3 { float: left; width: 75%; }
+
+    </style>
+</head>
+<body>
+    <div class="box1">BOX1</div>
+    <div class="boxA">
+        <div class="boxB">
+            <div class="box2">BOX2</div>
+            <div class="box3">BOX3</div>
+        </div>
+        <div class="box4">BOX4</div>
+    </div>
+</body>
+</html>
