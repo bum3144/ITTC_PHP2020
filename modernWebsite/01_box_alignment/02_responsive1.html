@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive web design 1</title>
+    <style>
+        /* 
+        1. @media() { ~ }  => media query
+        ex) @media(min-width: 768px) { background-color: red; }
+
+        2. break point : 768px 
+        */
+
+        .box1{ height: 200px; background-color: red; }
+        .box2{ height: 200px; background-color: yellow; }
+        .box3{ height: 200px; background-color: blue; }
+        
+        @media(min-width: 768px) { 
+            .boxA:after { content: ""; display: block; clear: both;}
+            .box2{float: left; width: 70%;}
+            .box3{float: left; width: 30%;}
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box1">
+        BOX1
+    </div>
+
+    <div class="boxA">
+        <div class="box2">
+            BOX2
+        </div>
+        <div class="box3">
+            BOX3
+        </div>
+    </div>
+
+</body>
+</html>
