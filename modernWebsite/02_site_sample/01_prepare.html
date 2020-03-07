@@ -30,21 +30,38 @@
         margin-bottom: 20px;
     }
 
-    /* 2. News Article */
+    /* 3. Menu (vertical) */
     .menu ul {
         margin: 0;
         padding: 0;
         list-style: none;
     }
-    .menu li {
+    .menu li a{ /* 링크 마크 삭제, 글자색 검정색, 링크 범위 확대(block)*/
         display: block;
         padding: 5px;
         color: #000000;
         font-size: 14px;
-        text-decoration: none;
+        text-decoration: none; 
     }
     .menu li a:hover {
         background-color: #eeeeee;
+    }
+    /* 4. Menu (Horizontal) */
+    .menu ul:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+    .menu li {
+        float: left;
+        width: auto;
+    }
+
+    /* 5. Copyright */
+    .copyright p {
+        margin: 0;
+        color: #666666;
+        font-size: 14px;
     }
     </style>
 </head>
@@ -85,18 +102,23 @@
         </p>
     </div>
 
-    <!-- 3. Menu (vertical)-->
+    <!-- 3. Menu (vertical), 4. Menu (Horizontal) -->
     <div class="menu">
         <ul>
-            <li>
-                <a href="#">MAIN</a>
-                <a href="#">GOODS</a>
-                <a href="#">TOOLS</a>
-                <a href="#">OUTING</a>
-                <a href="#">FOOD</a>
-                <a href="#">INQUIRE</a>
+            <li><a href="#">MAIN</a></li>
+            <li><a href="#">GOODS</a></li>
+            <li><a href="#">TOOLS</a></li>
+            <li><a href="#">OUTING</a></li>
+            <li><a href="#">FOOD</a></li>
+            <li><a href="#">INQUIRE</a></li>
             </li>
         </ul>
+    </div>
+
+    <!-- 5. Copyright -->
+    <div class="copyright">
+        <p>DailyBreak is a blog that posts things related to daily life.</p>
+        <p>Copyright &copy; DailyBreak</p>
     </div>
 </body>
 </html>
