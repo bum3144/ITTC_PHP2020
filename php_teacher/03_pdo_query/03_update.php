@@ -7,7 +7,8 @@ try{
             jokedate="2020-03-10" WHERE 
             joketext LIKE "%hello%"';
 
-    $affectedRows = $pdo->exec($sql);
+    $affectedRows = $pdo->exec($sql); // <= Returns the number of rows processed by exec method.(처리된 row 갯수 반환)
+
     $output = 'Updated row: ' . $affectedRows . ' ea.';
 }catch(PDOException $e){
     $output = "Database error!! <br> " . 
