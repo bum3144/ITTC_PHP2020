@@ -31,21 +31,21 @@ echo '<p>'. htmlspecialchars($jk) .'</p>';
     <?php endif; ?>
 
     
-<hr>
-<h1>Version 2</h1>
+<!-- <hr>
+<h1>Version 2</h1> -->
 <?php 
-    if (isset($e)): 
-        echo '<p>'. $e .'</p>';
-    else: // print joke text
-        foreach ($jokes as $jk):
-            // htmlspecialchars <= Convert html entities to string characters.
-            // ex) < => &lt; , > => &gt; , & => &amp;
+    // if (isset($e)): 
+    //     echo '<p>'. $e .'</p>';
+    // else: // print joke text
+    //     foreach ($jokes as $jk):
+    //         // htmlspecialchars <= Convert html entities to string characters.
+    //         // ex) < => &lt; , > => &gt; , & => &amp;
 
-            // echo '<blockquote><p>'. $jk .'</p></blockquote>';
-            // echo '<p>'. htmlspecialchars($jk) .'</p>';
-            echo '<blockquote><p>'. htmlspecialchars($jk) .'</p></blockquote>'; //들여쓰기
-        endforeach;        
-    endif;
+    //         // echo '<blockquote><p>'. $jk .'</p></blockquote>';
+    //         // echo '<p>'. htmlspecialchars($jk) .'</p>';
+    //         echo '<blockquote><p>'. htmlspecialchars($jk) .'</p></blockquote>'; //들여쓰기
+    //     endforeach;        
+    // endif;
 ?>
 </body>
 </html>
