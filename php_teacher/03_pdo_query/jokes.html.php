@@ -24,7 +24,7 @@ echo '<p>'. htmlspecialchars($jk) .'</p>';
         <?php foreach ($jokes as $jk): ?>
             <blockquote> <!--들여쓰기-->
                 <p>
-                    <?=htmlspecialchars($jk);?> <!--?=htmlspecialchars($jk);?-->
+                    <?=htmlspecialchars($jk, ENT_QUOTES, 'UTF-8');?> <!--?=htmlspecialchars($jk);?-->
                 </p>
             </blockquote>
         <?php endforeach; ?>        
