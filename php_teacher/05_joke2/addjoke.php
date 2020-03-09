@@ -8,10 +8,24 @@
 if(isset($_POST['joketext'])){
     try{
         $pdo = new PDO('mysql:host=localhost;dbname=ijdb;charset=utf8;','ijdbuser','mypassword');
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);        
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);     
+        
+        $sql = 'INSERT INTO `joke` SET
+        `joketext` = :joketext,
+        `jokedate` = CURDATE()';
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->bindValue(':joketext', $_POST['joketext']);
+
+        $stmt->execute();
+
+        header('Location: jokes.php');
+
     }catch (PDOException $e){
-        $title = "Database error!! <br> " . 
-        $e->getMessage() . "<br> Location file: " . $e->getFile() . "<br> Error line: " . $e->getLine();   
+        $title = "An error occurred!!";
+
+        $output = 'Database error : ' . $e->getMessage() . "<br> Location file: " . $e->getFile() . "<br> Error line: " . $e->getLine();   
     }
 }else{
     $title = 'Add joke posts';
@@ -22,6 +36,6 @@ if(isset($_POST['joketext'])){
 
     $output = ob_get_clean();
 
-    include __DIR__ . '/templates/layout.html.php';
 }
+include __DIR__ . '/templates/layout.html.php';
 ?>
