@@ -25,9 +25,10 @@
             <?=$error;?>
         </p>
         <?php else: ?>
-            : Text output, form output, database output.
+            <!-- : Text output, form output, database output.
 
-            : The part that shows what you want.
+            : The part that shows what you want. -->
+            <?=$output;?>
         <?php endif; ?>
     </main>
 
