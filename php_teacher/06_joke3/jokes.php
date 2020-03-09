@@ -3,37 +3,42 @@ try{
     $pdo = new PDO('mysql:host=localhost;dbname=ijdb;charset=utf8','ijdbuser','mypassword');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $sql = 'SELECT `joketext` FROM `joke`';
-
-    $result = $pdo->query($sql);
+    $sql = 'SELECT `id`, `joketext` FROM `joke`';
    
-    while($row = $result->fetch()){ 
-        $jokes[] = $row['joketext']; 
-    }
+    // 01. while
+    // $result = $pdo->query($sql);
+    // while($row = $result->fetch()){ 
+    //     $jokes[] = ['id' => $row['id'], 'joketext' => $row['joketext']]; 
+    // }  
 
-    $title = 'Joke List';
-    $output = '';
-    
-    // foreach ($jokes as $jk){
-    //     $output .= '<blockquote>';
-    //     $output .= '<p>';
-    //     $output .= $jk;
-    //     $output .= '</p>';
-    //     $output .= '</blockquote>';
+    // 02. foreach를 사용해 본다
+    // $result = $pdo->query($sql);
+    // foreach ($result as $row){ 
+    //     $jokes[] = array('id' => $row['id'], 'joketext' => $row['joketext']); 
     // }
 
-    ob_start(); // output buffering -> php가 실행되지만 브라우저로 전송되지않고 버퍼에 저장됨.
+    // 03. 템플릿에서 사용할 $jokes 변수는 배열이 아니라 PDOStatement 객체로 바뀌었다
+    // $result = $pdo->query($sql);
+    // $jokes = $result;
 
-    // foreach부분을 인쿠르드 시킨다
+    // 04. Finish
+    $jokes = $pdo->query($sql);
+
+    $title = 'Joke List';
+     
+    ob_start(); 
+
     include __DIR__ . '/templates/jokes.html.php';
 
-    $output = ob_get_clean(); // buffer return and remove buffer
-    // ob_start(); php가 실행되지만 브라우저로 전송되지않고 버퍼에 저장됨(내용을 출력하지 않음)
-    // $output = ob_get_clean(); include로 불러온 파일의 내용을 출력하지 않고 $output 변수에 담아둘 수 있다.
+    $output = ob_get_clean(); 
 
 }catch (PDOException $e){
-    $output = "Database error!! <br> " . 
-    $e->getMessage() . "<br> Location file: " . $e->getFile() . "<br> Error line: " . $e->getLine();
+    $title = "An error occurred!!";
+
+    $output = 'Database error : ' . 
+    $e->getMessage() . "<br> Location file: " . 
+    $e->getFile() . "<br> Error line: " . 
+    $e->getLine();   
 }
 
 include __DIR__ . '/templates/layout.html.php';
