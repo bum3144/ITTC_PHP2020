@@ -1,4 +1,5 @@
 <?php
+
 try{
     $pdo = new PDO('mysql:host=localhost;dbname=ijdb;charset=utf8','ijdbuser','mypassword');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -12,7 +13,8 @@ try{
 
     header('Location: jokes.php');
 
-}catch (PDOException $e){
+}
+catch (PDOException $e){
     $title = "An error occurred!!";
 
     $output = 'Database error : ' . 
