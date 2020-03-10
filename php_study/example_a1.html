@@ -1,0 +1,19 @@
+<head>
+    <meta charset="utf-8">
+</head>
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script>
+	function add() {
+		$.ajax({
+			url: "http://localhost/ITTC_PHP2020/php_study/example_a1.php",
+			type: "post",
+			data: $("form").serialize(),
+		}).done(function(data) {
+			alert(data);
+		});
+	}
+</script>
+<form>
+	<input type="text" name="number1"> 더하기 <input type="text" name="number2"><br>
+	<input type="button" onclick="add()" value="결과">
+</form>
