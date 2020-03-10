@@ -21,6 +21,7 @@ try{
     // $result = $pdo->query($sql);
     // $jokes = $result;
 
+
     // 04. Finish
     $jokes = $pdo->query($sql);
 
@@ -32,7 +33,8 @@ try{
 
     $output = ob_get_clean(); 
 
-}catch (PDOException $e){
+}
+catch (PDOException $e){
     $title = "An error occurred!!";
 
     $output = 'Database error : ' . 
