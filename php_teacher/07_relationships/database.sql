@@ -19,7 +19,7 @@ CREATE TABLE `joke` (
 --   PRIMARY KEY (`id`)
 -- ) DEFAULT CHARACTER SET utf8 ENGINE=InnoDB;
 
--- 3. INSERT DATA
+-- 3. INSERT SAMPLE DATA
 INSERT INTO `joke` SET
     `joketext` = 'A: Hey, man! Please call me a taxi. B: Yes, sir. You are a taxi.',
     `jokedate` = '2020-03-01';
@@ -56,3 +56,30 @@ CREATE TABLE `author` (
     `name` VARCHAR(255),
     `email` VARCHAR(255)
 ) DEFAULT CHARACTER SET utf8 ENGINE=InnoDB;
+
+-- 5.3 INSERT SAMPLE DATA
+-- author
+INSERT INTO `author` SET
+    `id` = 1,
+    `name` = 'Jeremy Park',
+    `email` = 'jeremy@ittc.com';
+
+INSERT INTO `author` (`id`, `name`, `email`)
+    VALUES (2, 'David Jo', 'david@ittc.com');
+
+-- joke
+INSERT INTO `joke` SET
+    `joketext` = 'A: Hey, man! Please call me a taxi. B: Yes, sir. You are a taxi.',
+    `jokedate` = '2020-03-01',
+    `authorid` = 1;
+
+INSERT INTO `joke` (`joketext`, `jokedate`, `authorid`)
+VALUES ('Girl: You would be a good dancer except for two things. Boy: What are the two things? Girl: Your feet.', 
+        '2020-03-02',
+        1
+        );
+INSERT INTO `joke` (`joketext`, `jokedate`, `authorid`)
+VALUES ('I dreamed I was forced to eat a giant marshmallow. When I woke up, my pillow was gone.', 
+        '2020-03-03',
+        2
+        );
