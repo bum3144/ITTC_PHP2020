@@ -83,3 +83,16 @@ VALUES ('I dreamed I was forced to eat a giant marshmallow. When I woke up, my p
         '2020-03-03',
         2
         );
+
+    -- // join할 두 쿼리
+    -- // SELECT `id`, LEFT(`joketext`, 20), `authorid` FROM `joke`
+    -- // SELECT * FROM `author`
+    -- $sql = 'SELECT `joke`.`id`, LEFT(`joketext`,20), `name`, `email`
+    -- FROM `joke` INNER JOIN `author`
+    -- ON `authorid` = `author`.`id`';
+
+    -- // Jeremy Park 이 작성한 글 전부 불러오기
+    -- SELECT `joketext`, `name`, `email`
+    -- FROM `joke` INNER JOIN `author`
+    -- ON `authorid` = `author`.`id`
+    -- WHERE `name` = "Jeremy Park";
