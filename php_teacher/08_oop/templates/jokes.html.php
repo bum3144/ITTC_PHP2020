@@ -1,3 +1,4 @@
+<p>There are [ <?=$totalJokes;?> ] joke posts.</p> 
 <?php foreach ($jokes as $jk): ?>
     <blockquote> 
         <p>
