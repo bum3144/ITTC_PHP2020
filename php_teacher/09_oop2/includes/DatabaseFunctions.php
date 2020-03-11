@@ -103,7 +103,24 @@ function getJoke($pdo, $id){
 // 04-1. insertJoke() 추가 (addjoke.php)
 function insertJoke($pdo, $joketext, $authorId){
 
+    $query = 'INSERT INTO `joke` (`joketext`, `jokedate`, `authorid`) 
+                VALUES (:joketext, CURDATE(), :authorId)';
+    $parameters = [':joketext' => $joketext, ':authorId' => $authorId];
+
+    query($pdo, $query, $parameters);
 }
+
+// =========================================================================
+// 04-2. updateJoke() 추가 
+function updateJoke($pdo, $jokeId, $joketext, $authorId){
+
+    $parameters = [':id' => $jokeId, ':joketext' => $joketext, ':authorId' => $authorId];
+    query($pdo, 'UPDATE `joke` SET `authorId` = :authorId, `joketext` = :joketext 
+                WHERE `id` = :id', $parameters);
+
+}
+
+
 
 
 
