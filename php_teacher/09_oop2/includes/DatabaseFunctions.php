@@ -112,6 +112,7 @@ function insertJoke($pdo, $joketext, $authorId){
 
 // =========================================================================
 // 04-2. updateJoke() 추가 
+// ex) updateJoke($pdo, 1, 'test test joke', 1);
 function updateJoke($pdo, $jokeId, $joketext, $authorId){
 
     $parameters = [':id' => $jokeId, ':joketext' => $joketext, ':authorId' => $authorId];
@@ -119,6 +120,31 @@ function updateJoke($pdo, $jokeId, $joketext, $authorId){
                 WHERE `id` = :id', $parameters);
 
 }
+
+// =========================================================================
+// 04-3. deleteJoke() 추가 
+function deleteJoke($pdo, $id){
+
+    $parameters = [':id' => $id];
+    query($pdo, 'DELETE FROM `joke` WHERE `id` = :id', $parameters);
+
+}
+
+// =========================================================================
+// 04-4. allJoke() 리스트 함수 추가 
+function allJokes($pdo){
+
+    $jokes = query($pdo, 'SELECT `joke`.`id`, `joketext`, `name`, `email` 
+        FROM `joke` INNER JOIN `author` 
+        ON `authorid` = `author`.`id`');
+    return $jokes->fetchAll(); // fetchAll() 메서드는 쿼리로 불러온 무든 레코드를 배열로 반환한다. 
+
+}
+
+
+
+
+
 
 
 
