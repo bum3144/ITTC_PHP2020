@@ -8,6 +8,8 @@
             echo htmlspecialchars($jk['email'], ENT_QUOTES, 'UTF-8');?>"><?php 
             echo htmlspecialchars($jk['name'], ENT_QUOTES, 'UTF-8');?></a>)
 
+        <a href="editjoke.php?id=<?=$jk['id'];?>">EDIT</a>
+
         <form action="deletejoke.php" method="post">
             <input type="hidden" name="id" value="<?=$jk['id'];?>">
             <input type="submit" value="DEL">
