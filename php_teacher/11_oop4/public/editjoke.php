@@ -4,8 +4,8 @@ include __DIR__ . "/../includes/DatabaseFunctions.php";
 
 try{
     if(isset($_POST['joketext'])){
-        // 파라미터를 배열로 수정하여 전달
-        updateJoke($pdo, [
+        // updateJoke() -> update(), table명 추가, primary key 추가
+        update($pdo, 'joke', 'id', [
             'id' => $_POST['jokeid'], 
             'joketext' => $_POST['joketext'], 
             'authorid' => 1
