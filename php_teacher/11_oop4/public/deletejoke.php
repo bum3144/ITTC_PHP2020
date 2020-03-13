@@ -2,8 +2,9 @@
 try{
     include __DIR__ . '/../includes/DatabaseConnection.php';
     include __DIR__ . '/../includes/DatabaseFunctions.php';
-
-    deleteJoke($pdo, $_POST['id']);
+        
+    // deleteJoke() -> delete(), table명 추가, primary key 추가
+    delete($pdo, 'joke', 'id', $_POST['id']);
 
     header('Location: jokes.php');
 
