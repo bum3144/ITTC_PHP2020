@@ -6,7 +6,13 @@
 
         (Author: <a href="mailto:<?php 
             echo htmlspecialchars($jk['email'], ENT_QUOTES, 'UTF-8');?>"><?php 
-            echo htmlspecialchars($jk['name'], ENT_QUOTES, 'UTF-8');?></a>)
+            echo htmlspecialchars($jk['name'], ENT_QUOTES, 'UTF-8');?></a>
+            Post date: 
+            <?php
+                $date = new DateTime($jk['jokedate']);
+                echo $date->format('jS F Y');
+                //echo $date->format('Y-m-d');
+            ?>)
 
         <a href="editjoke.php?id=<?=$jk['id'];?>">EDIT</a>
 
