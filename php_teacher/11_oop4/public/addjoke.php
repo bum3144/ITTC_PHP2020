@@ -4,8 +4,8 @@ if(isset($_POST['joketext'])){
         include __DIR__ . '/../includes/DatabaseConnection.php';
         include __DIR__ . '/../includes/DatabaseFunctions.php';
         
-        // 파라미터를 배열로 수정하여 전달
-        insertJoke($pdo, [
+        // insertJoke() -> insert() 변경, table명 추가
+        insert($pdo, 'joke', [
             'authorid' => 1,
             'joketext' => $_POST['joketext'], 
             'jokedate' => new DateTime()
