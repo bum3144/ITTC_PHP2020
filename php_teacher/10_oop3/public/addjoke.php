@@ -4,7 +4,12 @@ if(isset($_POST['joketext'])){
         include __DIR__ . '/../includes/DatabaseConnection.php';
         include __DIR__ . '/../includes/DatabaseFunctions.php';
         
-        insertJoke($pdo, $_POST['joketext'], 1);
+        // 파라미터를 배열로 수정하여 전달
+        insertJoke($pdo, [
+            'authorid' => 1,
+            'joketext' => $_POST['joketext'], 
+            'jokedate' => new DateTime()
+            ]);
 
         header('Location: jokes.php');
 
