@@ -1,10 +1,12 @@
 <?php
 try{
     include __DIR__ . '/../includes/DatabaseConnection.php';
-    include __DIR__ . '/../includes/DatabaseFunctions.php';
+    include __DIR__ . '/../classes/DatabaseTable.php';
+    // include __DIR__ . '/../includes/DatabaseFunctions.php'; // DatabaseTable파일의 class로 대체.
         
-    // deleteJoke() -> delete(), table명 추가, primary key 추가
-    delete($pdo, 'joke', 'id', $_POST['id']);
+    $jokeTable = new DatabaseTable ($pdo, 'joke', 'id');
+    
+    $jokeTable->delete($_POST['id']);
 
     header('Location: jokes.php');
 

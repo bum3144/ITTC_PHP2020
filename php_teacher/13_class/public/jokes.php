@@ -1,14 +1,18 @@
 <?php
 try{
     include __DIR__ . '/../includes/DatabaseConnection.php';
-    include __DIR__ . '/../includes/DatabaseFunctions.php';
+    include __DIR__ . '/../classes/DatabaseTable.php';
+    // include __DIR__ . '/../includes/DatabaseFunctions.php'; // DatabaseTable파일의 class로 대체.
 
-    $result = findAll($pdo, 'joke');
+    $jokeTable = new DatabaseTable($pdo, 'joke', 'id');
+    $authorsTable = new DatabaseTable($pdo, 'author', 'id');
+
+    $result = $jokeTable->findAll();
 
     $jokes = [];
 
     foreach($result as $joke){
-        $author = findById($pdo, 'author', 'id', $joke['authorid']);
+        $author = $authorsTable->findById($joke['authorid']);
 
         $jokes[] = [
             'id' => $joke['id'],
@@ -20,10 +24,9 @@ try{
     }
 
 
-    $title = 'Joke List';
+    $title = 'Joke Post List';
 
-    // totalJokes() -> total() 변경, table명 추가
-    $totalJokes = total($pdo, 'joke');
+    $totalJokes = $jokeTable->total();
      
     ob_start(); 
 

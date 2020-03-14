@@ -1,23 +1,22 @@
 <?php
-include __DIR__ . "/../includes/DatabaseConnection.php";
-include __DIR__ . "/../includes/DatabaseFunctions.php";
-
 try{
+    include __DIR__ . "/../includes/DatabaseConnection.php";
+    include __DIR__ . '/../classes/DatabaseTable.php';
+    // include __DIR__ . '/../includes/DatabaseFunctions.php'; // DatabaseTable파일의 class로 대체.
+    
+    $jokeTable = new DatabaseTable($pdo, 'joke', 'id');
+
     if(isset($_POST['joke'])){
-        // updateJoke() -> update(), table명 추가, primary key 추가
-        // 이제는 update() 대신 save()함수로 대체한다           
-        // form 필드 데이터는 PHP 배열 형태로 전달된다 
-        // 전달된 $_POST['joke]는 단일값이 아니라 배열이다.
         $joke = $_POST['joke'];
         $joke['jokedate'] = new DateTime();
         $joke['authorid'] = 1;
 
-        save($pdo, 'joke', 'id', $joke);
+        $jokeTable->save($joke);
 
         header('location: jokes.php');
     }else{
         if (isset($_GET['id'])){
-            $joke = findById($pdo, 'joke', 'id', $_GET['id']);
+            $joke = $jokeTable->findById($_GET['id']);
         }
         
         $title = 'Edit joke post';
