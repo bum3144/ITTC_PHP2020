@@ -1,37 +1,49 @@
 <?php
 class DatabaseTable
 {
+    public $pdo;
+    public $table;
+    public $primaryKey;
+
+    // __construct() 이 함수는 클래스 인스턴스가 생성될 때마다 자동으로 실행된다.
+    // 타입힌트를 지정하려면 변수명 앞에 타입명을 쓴다.
+    public function __construct(PDO $pdo, string $table, string $primaryKey){
+        $this->pdo = $pdo;
+        $this->table = $table;
+        $this->primaryKey = $primaryKey;
+    }
+
     /* query */ 
-    private function query($pdo, $sql, $parameters = []){
-        $query = $pdo->prepare($sql);
+    private function query($sql, $parameters = []){
+        $query = $this->pdo->prepare($sql);
         $query->execute($parameters);
         return $query;
     }
 
     /* get the all table row(number) */
-    public function total($pdo, $table){
-        $query = $this->query($pdo, 'SELECT COUNT(*) FROM `' . $table . '`');
+    public function total(){
+        $query = $this->query('SELECT COUNT(*) FROM `' . $this->table . '`');
         $row = $query->fetch();
         return $row[0];
     }
 
     /* get the table data by ID */
-    public function findById($pdo, $table, $primaryKey, $value){
-        $query = 'SELECT * FROM `' . $table . '` 
-            WHERE `' . $primaryKey . '` = :value';
+    public function findById($value){
+        $query = 'SELECT * FROM `' . $this->table . '` 
+            WHERE `' . $this->primaryKey . '` = :value';
 
         $parameters = [
             'value' => $value
         ];
 
-        $query = $this->query($pdo, $query, $parameters);
+        $query = $this->query($query, $parameters);
 
         return $query->fetch();
     }
 
     /* insert table data */
-    private function insert($pdo, $table, $fields){
-        $query = 'INSERT INTO `' . $table . '` (';
+    private function insert($fields){
+        $query = 'INSERT INTO `' . $this->table . '` (';
 
         foreach($fields as $key => $value){
             $query .= '`' . $key . '`,'; 
@@ -49,15 +61,15 @@ class DatabaseTable
 
         $query .= ')';
         
-        $fields = processDates($fields);
+        $fields = $this->processDates($fields);
 
-        $this->query($pdo, $query, $fields);
+        $this->query($query, $fields);
     }
 
 
     /* update table data */
-    private function update($pdo, $table, $primaryKey, $fields){
-        $query = 'UPDATE `' . $table . '` SET ';
+    private function update($fields){
+        $query = 'UPDATE `' . $this->table . '` SET ';
 
         foreach($fields as $key => $value){
             $query .= '`' . $key . '` = :' . $key . ',';
@@ -65,27 +77,27 @@ class DatabaseTable
 
         $query = rtrim($query, ',');
 
-        $query .= ' WHERE `' . $primaryKey . '` = :primaryKey';
+        $query .= ' WHERE `' . $this->primaryKey . '` = :primaryKey';
         
         // :primaryKey 변수 설정
         $fields['primaryKey'] = $fields['id'];
 
-        $fields = processDates($fields);
+        $fields = $this->processDates($fields);
 
-        $this->query($pdo, $query, $fields);
+        $this->query($query, $fields);
     }
 
     /* delete table data */
-    public function delete($pdo, $table, $primaryKey, $id){
+    public function delete($id){
         $parameters = [':id' => $id ];
 
-        $this->query($pdo, 'DELETE FROM `' . $table . '` 
-            WHERE `' . $primaryKey . '` = :id', $parameters);
+        $this->query($pdo, 'DELETE FROM `' . $this->table . '` 
+            WHERE `' . $this->primaryKey . '` = :id', $parameters);
     }
 
     /* get the all table data */
-    private function findAll($pdo, $table){
-        $result = $this->query($pdo,'SELECT * FROM `' . $table . '`');
+    private function findAll(){
+        $result = $this->query('SELECT * FROM `' . $this->table . '`');
 
         return $result->fetchAll();
     }
@@ -103,14 +115,14 @@ class DatabaseTable
     }
 
     /* (insert data) or (edit data) */
-    public function save($pdo, $table, $primaryKey, $record) {
+    public function save($record) {
         try{
-            if($record[$primaryKey] == '') {    // 기본키는 대부분 INT며 정수만 허용. 빈문자열을 전달하면 오류가 발생한다.
-                $record[$primaryKey] = null;   // null을 지정하면 auto_increment 기능이 실행된다
+            if($record[$this->primaryKey] == '') {    // 기본키는 대부분 INT며 정수만 허용. 빈문자열을 전달하면 오류가 발생한다.
+                $record[$this->primaryKey] = null;   // null을 지정하면 auto_increment 기능이 실행된다
             }
-            $this->insert($pdo, $table, $record);
+            $this->insert($record);
         }catch (PDOException $e){
-            $this->update($pdo, $table, $primaryKey, $record);
+            $this->update($record);
         }
     } 
 
