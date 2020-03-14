@@ -21,4 +21,4 @@ Welcome to the Internet Joke World~!
 
 
 ## License
-[ITTC](ITTC.kr)
+[ITTC](http://ITTC.kr)
