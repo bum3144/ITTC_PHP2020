@@ -212,6 +212,17 @@ function total($pdo, $table){
     return $row[0];
 }
 
+// try...catch문을 save()함수로 선언 - insert(), update() 구분
+function save($pdo, $table, $primaryKey, $record) {
+    try{
+        if($record[$primaryKey] == '') {    // 기본키는 대부분 INT며 정수만 허용. 빈문자열을 전달하면 오류가 발생한다.
+            $record[$primaryKey] = null;   // null을 지정하면 auto_increment 기능이 실행된다
+        }
+        insert($pdo, $table, $record);
+    }catch (PDOException $e){
+        update($pdo, $table, $primaryKey, $record);
+    }
+} 
 
 
 
