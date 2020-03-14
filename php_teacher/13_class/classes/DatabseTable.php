@@ -1,9 +1,15 @@
 <?php
 class DatabaseTable
 {
-    public $pdo;
-    public $table;
-    public $primaryKey;
+    // // 01. public 변수는 언제 어디서나 새로 값을 설정할 수 잇어서 문제가 된다
+    // public $pdo;
+    // public $table;
+    // public $primaryKey;
+
+    // 02. private 으로 설정하면 클래스 외부에서 해당 변수를 읽거나 쓸 수 없다
+    private $pdo;
+    private $table;
+    private $primaryKey;
 
     // __construct() 이 함수는 클래스 인스턴스가 생성될 때마다 자동으로 실행된다.
     // 타입힌트를 지정하려면 변수명 앞에 타입명을 쓴다.
@@ -126,7 +132,7 @@ class DatabaseTable
         }
     } 
 
-
-
 }
-?>
+
+// 전체가 PHP 코드일 때는 종료 태크 ? > 를 생략하는 편이 좋다. 종료 태그 다음에 빈 줄, 탭, 공백 및 문자가 있으면 브라우저로 전송된다.
+// 종료 태크가 없으면 마지막 공백 문자들을 알아서 무시한다 
