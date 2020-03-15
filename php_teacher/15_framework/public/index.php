@@ -1,5 +1,4 @@
 <?php
-// 03.
 function loadTemplate($templateFileName, $variables = []){
 
     extract($variables);
@@ -17,24 +16,17 @@ try{
 
     $jokesTable = new DatabaseTable($pdo, 'joke', 'id');
     $authorsTable = new DatabaseTable($pdo, 'author', 'id');
-
     $jokeController = new JokeController($jokesTable, $authorsTable);
 
-    // // 01
-    // if(isset($_GET['edit'])){
-    //     $page = $jokeController->edit();
-    // }elseif(isset($_GET['delete'])){
-    //     $page = $jokeController->delete();
-    // }elseif(isset($_GET['list'])){
-    //     $page = $jokeController->list();
-    // }else{
-    //     $page = $jokeController->home();
-    // }
-
-    // 02 if문 대체 - 널 병합 연산자를 활용 컨트롤러 함수
     $action = $_GET['action'] ?? 'home';
 
-    $page = $jokeController->$action();
+    // 모든 URL을 소문자로 변경 
+    if($action == strtolower($action)){
+        $page = $jokeController->$action();
+    }else{
+        http_response_code(301);
+        header('location: index.php?action=' . strtolower($action));
+    }
 
     $title = $page['title'];
 
@@ -55,5 +47,5 @@ try{
 
 }
   
-    include __DIR__ . '/../templates/layout.html.php';
+include __DIR__ . '/../templates/layout.html.php';
 ?>
