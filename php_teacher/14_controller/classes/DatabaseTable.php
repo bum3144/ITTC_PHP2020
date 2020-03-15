@@ -97,13 +97,13 @@ class DatabaseTable
     public function delete($id){
         $parameters = [':id' => $id ];
 
-        $this->query($pdo, 'DELETE FROM `' . $this->table . '` 
+        $this->query('DELETE FROM `' . $this->table . '` 
             WHERE `' . $this->primaryKey . '` = :id', $parameters);
     }
 
     /* get the all table data */
-    private function findAll(){
-        $result = $this->query('SELECT * FROM `' . $this->table . '`');
+    public function findAll(){
+        $result = $this->query('SELECT * FROM ' . $this->table);
 
         return $result->fetchAll();
     }
