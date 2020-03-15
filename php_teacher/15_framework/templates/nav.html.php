@@ -4,7 +4,10 @@
     </header>
     <ul>
         <li><a href="index.php">HOME</a></li>
-        <li><a href="index.php?action=list">JOKE LIST</a></li>
-        <li><a href="index.php?action=edit">JOKE ADD</a></li>
+        <li><a href="index.php?route=joke/list">JOKE LIST</a></li>
+        <li><a href="index.php?route=joke/edit">JOKE ADD</a></li>
+        <!-- <li><a href="/">HOME</a></li>
+        <li><a href="/joke/list">JOKE LIST</a></li>
+        <li><a href="/joke/edit">JOKE ADD</a></li> -->
     </ul>
 </nav>        
