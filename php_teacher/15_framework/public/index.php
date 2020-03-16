@@ -8,34 +8,34 @@ function loadTemplate($templateFileName, $variables = []){
 
     return ob_get_clean(); 
 }
-
 try{
     include __DIR__ . '/../includes/DatabaseConnection.php';
     include __DIR__ . '/../classes/DatabaseTable.php';
-
+    
     $jokesTable = new DatabaseTable($pdo, 'joke', 'id');
     $authorsTable = new DatabaseTable($pdo, 'author', 'id');
-
-    $action = $_GET['action'] ?? 'home';
-
-    // route 변수가 없으면 'joke/home' 할당
+    
     $route = $_GET['route'] ?? 'joke/home';
-    // $route = ltrim(strtok($_SERVER['REQUEST_URL'], '?'), './');
+    
+    // die;
+    // route 변수가 없으면 'joke/home' 할당
+    //$route = $_GET['route'] ?? 'joke/home';
+    $route = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
 
     if ($route == strtolower($route)){
-        if($route == 'joke/list'){
+        if($route === 'joke/list'){
             include __DIR__ . '/../classes/controllers/JokeController.php';
             $controller = new JokeController($jokesTable, $authorsTable);
             $page = $controller->list();
-        }elseif($route == 'joke/home'){
+        }elseif($route === 'joke/home'){
             include __DIR__ . '/../classes/controllers/JokeController.php';
             $controller = new JokeController($jokesTable, $authorsTable);
             $page = $controller->home();
-        }elseif($route == 'joke/edit'){
+        }elseif($route === 'joke/edit'){
             include __DIR__ . '/../classes/controllers/JokeController.php';
             $controller = new JokeController($jokesTable, $authorsTable);
             $page = $controller->edit();
-        }elseif($route == 'joke/delete'){
+        }elseif($route === 'joke/delete'){
             include __DIR__ . '/../classes/controllers/JokeController.php';
             $controller = new JokeController($jokesTable, $authorsTable);
             $page = $controller->delete();
