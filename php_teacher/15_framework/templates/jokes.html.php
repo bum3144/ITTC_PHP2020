@@ -14,9 +14,15 @@
                 //echo $date->format('Y-m-d');
             ?>)
 
-        <a href="index.php?action=edit&id=<?=$jk['id'];?>">EDIT</a>
+        <!-- <a href="index.php?action=edit&id=<?=$jk['id'];?>">EDIT</a>
 
         <form action="index.php?action=delete" method="post">
+            <input type="hidden" name="id" value="<?=$jk['id'];?>">
+            <input type="submit" value="DEL">
+        </form> -->
+        <a href="/joke/edit?id=<?=$jk['id'];?>">EDIT</a>
+
+        <form action="/joke/delete" method="post">
             <input type="hidden" name="id" value="<?=$jk['id'];?>">
             <input type="submit" value="DEL">
         </form>
