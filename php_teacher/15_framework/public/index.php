@@ -16,18 +16,17 @@ try{
     $authorsTable = new DatabaseTable($pdo, 'author', 'id');
     
     $route = $_GET['route'] ?? 'joke/home';
-    
-    // die;
+
     // route 변수가 없으면 'joke/home' 할당
     //$route = $_GET['route'] ?? 'joke/home';
     $route = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
 
-    if ($route == strtolower($route)){
+     if ($route == strtolower($route)){
         if($route === 'joke/list'){
             include __DIR__ . '/../classes/controllers/JokeController.php';
             $controller = new JokeController($jokesTable, $authorsTable);
             $page = $controller->list();
-        }elseif($route === 'joke/home'){
+        }elseif($route === ''){
             include __DIR__ . '/../classes/controllers/JokeController.php';
             $controller = new JokeController($jokesTable, $authorsTable);
             $page = $controller->home();
