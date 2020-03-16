@@ -1,10 +1,9 @@
 # PHP URL 재작성(rewrite)
-최근 PHP 웹사이트는 URL에 PHP 파일명을 노출하지 않는다. 
-최근에는 보기 편하고 의미도 쉽게 파악하는
-친화적 URL(friendly-urls)이 주로 쓰인다.
-
+최근 PHP 웹사이트는 URL에 PHP 파일명을 노출하지 않는다.   
+최근에는 보기 편하고 의미도 쉽게 파악하는 친화적 URL(friendly-urls)이 주로 쓰인다.
+  
 friendly URL. 간편 URL (clean URL. fancy URL)이라고도 한다.
-
+  
 # URL 재작성 설정 - phpinfo() -> mod_rewrite 확인
 ```
 sudo a2enmod rewrites
@@ -48,7 +47,7 @@ sudo systemctl restart apache2
 
 ## index.php 개선사항
 
-코드를 분할해 관리 편의성과 가독성을 높였다.
+코드를 분할해 관리 편의성과 가독성을 높였다.  
 리다이렉트에 문제가 생기면 ***checkURL()*** 메서드를,  
 템플릿에 문제가 생기면 ***loadTemplate()*** 메서드를,  
 특정 URL에 접속할 수 없으면 ***callAction()*** 메서드를 살펴보면 된다.  
@@ -59,6 +58,7 @@ sudo systemctl restart apache2
 **JokeController** (X) - 현재 사이트에 특화된 컨트롤러다.  
 **EntryPoint** (O) 클래스 - 컨트롤러와 템플릿 파일을 불러오는 코드는 다른 웹사이트에서 유용하게 쓸 수 있다.  
 템플릿과 컨트롤러는 달라도 그들을 불러오는 코드는 같을 것이다.  
+
 참고) 웹사이트 코드 종류
 1) 프로젝트 전용 코드 : 특정 웹사이트에 관련된 코드
 2) 범용 코드 : 다른 웹사이트를 구축할 때 재사용하는 코드
