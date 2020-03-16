@@ -1,8 +1,10 @@
 <?php
 function autoloader($className) {
-	$file = __DIR__ . '/../classes/' . $className . '.php';
-	include $file;
-} 
+	$fileName = str_replace('\\', '/', $className) . '.php';
 
-sql_autoload_register('autoloader');    
-?>
+	$file = __DIR__ . '/../classes/' . $fileName;
+	
+	include $file;
+}
+
+spl_autoload_register('autoloader');
