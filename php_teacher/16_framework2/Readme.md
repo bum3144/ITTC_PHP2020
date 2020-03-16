@@ -38,7 +38,7 @@ $ sudo vi /etc/apache2/sites-available/000-default.conf
         </Directory>
 ```
 
-DocumentRoot /var/www/html/php_teacher/15_framework/public  <== 루트 경로
+DocumentRoot /var/www/html/php_teacher/16_framework2/public  <== 루트 경로
 
 # 아파치 재시작
 ```
