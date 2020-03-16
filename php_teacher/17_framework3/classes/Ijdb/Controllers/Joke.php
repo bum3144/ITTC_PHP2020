@@ -1,6 +1,6 @@
 <?php
 
-class JokeController {
+class Joke {
     private $authorsTable;
     private $jokesTable;
 
