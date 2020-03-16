@@ -1,4 +1,6 @@
 <?php
+namespace Ijdb\Controllers;
+use \Ittc\DatabaseTable;
 
 class Joke {
     private $authorsTable;
@@ -58,7 +60,7 @@ class Joke {
         if(isset($_POST['joke'])){
 
             $joke = $_POST['joke'];
-            $joke['jokedate'] = new DateTime();
+            $joke['jokedate'] = new \DateTime();
             $joke['authorid'] = 1;
     
             $this->jokesTable->save($joke);
