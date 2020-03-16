@@ -58,7 +58,50 @@ sudo systemctl restart apache2
 **JokeController** (X) - 현재 사이트에 특화된 컨트롤러다.  
 **EntryPoint** (O) 클래스 - 컨트롤러와 템플릿 파일을 불러오는 코드는 다른 웹사이트에서 유용하게 쓸 수 있다.  
 템플릿과 컨트롤러는 달라도 그들을 불러오는 코드는 같을 것이다.  
+  
+> 17_framework3  
+# 범용성과 특수성 - 웹사이트 코드 종류  
+1) 프로젝트 전용 코드 : 특정 웹사이트에 관련된 코드  
+2) 범용 코드 : 다른 웹사이트를 구축할 때 재사용하는 코드  
+  
+# 범용 EntryPoint 클래스 - 종속성 제거  
+1) 제거할 메서드를 정한다 -  callAction()  
+2) 해당 메서드를 전용 클래스로 옮기고 public 선언 - classes/IjdbRoutes.php  
+3) 참조 클래스 변수를 인수로 대체한다 $this->route를 $route로 바꾸고 메서드 인수에 $route를 추가  
+4) 원래 클래스에 있던 메서드를 제거 - EntryPoint 클래스에서 callAction() 메서드를 제거  
+5) 새로 만든 클래스를 담을 생성자 인수와 클래스 변수를 원래 클래스에 추가한다. - $routes 변수를 생성자 인수와 클래스 변수로 추가  
+6) 새로 만든 클래스를 원래 클래스의 생성자로 전달 - $entryPoint = new EntryPoint($route, new IjdbRoutes()); index.php에서 IjdbRoutes.php 를 불러온다  
+7) 새 객ㅊ테를 참조하도록 메서드 호출 코드를 변경하고 필요한 변수를 전달 - $page = $this->routes->callAction($this->route); 로 수정  
 
-# 범용성과 특수성 - 웹사이트 코드 종류
-1) 프로젝트 전용 코드 : 특정 웹사이트에 관련된 코드
-2) 범용 코드 : 다른 웹사이트를 구축할 때 재사용하는 코드
+# 오토로딩과 네임스페이스  
+> 오토로딩(autoloading): 클래스 파일을 자동으로 불러오는 기능. 모든 include문을 한곳에서 처리.  
+```
+function autoloader($className) {
+	$file = __DIR__ . '/../classes/' . $className . '.php';
+	include $file;
+} 
+
+sql_autoload_register('autoloader');
+
+autoloader('DatabaseTable');
+autoloader('EntryPoint');
+```
+
+PHP가 자동으로 autoloader() 함수를 호출하도록 선언 - 특정 클래스를 처음 사용할 때 자동으로 호출된다.  
+sql_autoload_register() 함수는 PHP 내장함수  
+```
+sql_autoload_register('autoloader');
+```
+
+## 오토로더 대소문자
+PHP 클래스명은 대소문자를 구별하지 않는다.  
+그러나 처음 불러오는 오토로더에서는 대소문자가 틀려지면 문제가 발생한다.  
+
+### 오토로더 구현
+include 폴더에 autoload.php 파일을 만들고 index.php에 include 시킨다.  
+EntryPoint.php, IjdbRoutes.php include를 제거한다.  
+
+# 디렉토리 변경
+범용파일 Ittc <= EntryPoint.php, DatabaseTable.php  
+프로젝트 전용 Ijdb <= IjdbRoutes.php, Controllers 디렉토리  
+경로수정 EntryPoint.php, IjdbRoutes.php '/../../templates/' or '/../../includes/'
