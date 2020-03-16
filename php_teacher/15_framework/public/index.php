@@ -18,7 +18,11 @@ try{
     $route = $_GET['route'] ?? 'joke/home';
 
     // route 변수가 없으면 'joke/home' 할당
-    //$route = $_GET['route'] ?? 'joke/home';
+    // $route = $_GET['route'] ?? 'joke/home';
+    
+    // $_SERVER['REQUEST_URI'] : 현재페이지의 주소에서 도메인 제거 ex) /joke/home?user=test
+    // strtok($_SERVER['REQUEST_URI'], '?') ? 와 이후 문자를 제거 ex) /joke/home
+    // ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/') 문자열 맨 앞에 있는 / 를 제거 ex) joke/home
     $route = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
 
      if ($route == strtolower($route)){
