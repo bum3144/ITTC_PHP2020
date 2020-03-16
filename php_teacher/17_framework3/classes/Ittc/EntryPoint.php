@@ -1,4 +1,6 @@
 <?php
+namespace Ittc;
+
 class EntryPoint 
 {
     private $route;
