@@ -1,13 +1,14 @@
 <?php
 try{
-    include __DIR__ . '/../include/autoload.php';
+    include __DIR__ . '/../includes/autoload.php';
     
     $route = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
     
-    $entryPoint = new EntryPoint($route, new IjdbRoutes());
+    // namespace Ittc; namespace Ijdb; 네임스페이스 사용
+    $entryPoint = new \Ittc\EntryPoint($route, new \Ijdb\IjdbRoutes());
     $entryPoint->run();
 
-}catch (PDOException $e){
+}catch (\PDOException $e){
 
     $title = "An error occurred!!";
 
