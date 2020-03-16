@@ -1,19 +1,15 @@
 <?php
+namespace Ittc;
+
 class DatabaseTable
 {
-    // // 01. public 변수는 언제 어디서나 새로 값을 설정할 수 잇어서 문제가 된다
-    // public $pdo;
-    // public $table;
-    // public $primaryKey;
-
-    // 02. private 으로 설정하면 클래스 외부에서 해당 변수를 읽거나 쓸 수 없다
     private $pdo;
     private $table;
     private $primaryKey;
 
-    // __construct() 이 함수는 클래스 인스턴스가 생성될 때마다 자동으로 실행된다.
     // 타입힌트를 지정하려면 변수명 앞에 타입명을 쓴다.
-    public function __construct(PDO $pdo, string $table, string $primaryKey){
+    // 네임스페이스 구조상 PDO객체를 사용하려면 맨앞에 \PDO $pdo로 서야 해당 클래스를 가리킬 수 있다
+    public function __construct(\PDO $pdo, string $table, string $primaryKey){
         $this->pdo = $pdo;
         $this->table = $table;
         $this->primaryKey = $primaryKey;
@@ -112,7 +108,7 @@ class DatabaseTable
     private function processDates($fields){
         foreach ($fields as $key => $value){
             // $value가 DateTime 객체라면...
-            if($value instanceof DateTime){
+            if($value instanceof \DateTime){
                 // Y-m-d H:i:s 형식으로 변환해라
                 $fields[$key] = $value->format('Y-m-d H:i:s');
             }
@@ -127,7 +123,7 @@ class DatabaseTable
                 $record[$this->primaryKey] = null;   // null을 지정하면 auto_increment 기능이 실행된다
             }
             $this->insert($record);
-        }catch (PDOException $e){
+        }catch (\PDOException $e){
             $this->update($record);
         }
     } 
