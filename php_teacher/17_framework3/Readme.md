@@ -29,7 +29,7 @@ $ sudo vi /etc/apache2/sites-available/000-default.conf
 	# However, you must set it for any further virtual host explicitly.
 	#ServerName www.example.com
         ServerAdmin webmaster@localhost
-	DocumentRoot /var/www/html/php_teacher/16_framework2/public
+	DocumentRoot /var/www/html/php_teacher/17_framework3/public
 
         <Directory /var/www/html>
             Options Indexes FollowSymLinks MultiViews
@@ -38,7 +38,7 @@ $ sudo vi /etc/apache2/sites-available/000-default.conf
         </Directory>
 ```
 
-DocumentRoot /var/www/html/php_teacher/15_framework/public  <== 루트 경로
+DocumentRoot /var/www/html/php_teacher/17_framework3/public  <== 루트 경로
 
 # 아파치 재시작
 ```
