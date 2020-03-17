@@ -43,4 +43,47 @@ sudo systemctl restart apache2
 	}	
 }
 ```
+[Composer참고사이트](https://www.sitepoint.com/re-introducing-composer) 
 [참고사이트](https://www.lesstif.com/pages/viewpage.action?pageId=26083685)  
+
+
+# 다차원 데이트 방식
+```
+$routes = [
+    'joke/edit' => [
+        'POST' => [
+            'controller' => $jokeController,
+            'action' => 'saveEdit'
+        ],
+        'GET' => [
+            'controller' => $jokeController,
+            'action' => 'edit'
+        ],
+        'home' => [
+            'controller' => $jokeController,
+            'action' => 'home'
+        ]
+    ]
+];
+```
+$route = $routes['joke/edit'];   
+$postRoute = $route['POST'];   
+echo($controller = $postRoute['controller']) ."<br>";   
+echo($action = $postRoute['action']) ."<br>";   
+> 대가로 []를 연속으로 쓰면 쉽게 이용할 수 있다  
+echo $controller = $routes['joke/edit']['POST']['controller'] ."<br>";   
+echo $controller = $routes['joke/edit']['POST']['action'] ."<br>";   
+
+## REST (Representational State Transfer) 레스트 기법
+> $_SERVER 배열의 REQUEST_URI 와 REQUEST_METHOD   
+```
+$route = $_SERVER['REQUEST_URI'];
+$method = $_SERVER['REQUEST_METHOD'];
+
+$controller = $route[$route][$method]['controller'];
+$action = $route[$route][Rmethod]['action'];
+
+$controller->$action();
+```
+
+[참고사이트-RESTfull_API_설계가이드](https://sanghaklee.tistory.com/57)  
