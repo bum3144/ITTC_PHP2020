@@ -3,7 +3,8 @@ namespace Ijdb;
 
 class IjdbRoutes 
 {
-    public function callAction($route)
+    // callAction() 메서드명을 getRoutes()고치고 함수 $route 인수를 제거한다음 return문을 추가해 $route를 반환한다.
+    public function getRoutes()
     {
         include __DIR__ . '/../../includes/DatabaseConnection.php';
      
@@ -43,12 +44,7 @@ class IjdbRoutes
             ]
         ];
 
-        $method = $_SERVER['REQUEST_MOTHOD'];
-        $controller = $routes[$route][$mothod]['controller'];
-        $action = $routes[$route][$mothod]['action'];
-
-        return $controller->$action();
-        
+        return $routes;        
     }
     
 }
