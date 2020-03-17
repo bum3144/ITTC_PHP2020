@@ -1,8 +1,9 @@
 <?php
 namespace Ijdb;
 
-class IjdbRoutes 
-{
+// IjdbRoutes가 인터페이스를 상속하도록 implements를 지정해야 한다.
+class IjdbRoutes implements \Ittc\Routes {
+    
     // callAction() 메서드명을 getRoutes()고치고 함수 $route 인수를 제거한다음 return문을 추가해 $route를 반환한다.
     public function getRoutes()
     {
