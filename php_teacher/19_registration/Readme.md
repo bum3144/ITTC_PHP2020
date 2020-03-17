@@ -24,9 +24,12 @@ $ sudo vi /etc/apache2/sites-available/000-default.conf
             Require all granted
         </Directory>
 	~	
-sudo systemctl restart apache2
+sudo systemctl restart apache2  
 ```
   
-> 19_registration 390 CMS-EntryPoint-namespaces-Router
+> 19_registration 390 CMS-EntryPoint-namespaces-Router  
 
-
+author Table -> password COLUMN 추가  
+Register class 생성, register.html.php 생성, registersuccess.html.php 생성  
+IjdbRoutes.php -> $authorController 추가, $routes 추가
+Register.php -> registerUser() 메서드 cnrk
