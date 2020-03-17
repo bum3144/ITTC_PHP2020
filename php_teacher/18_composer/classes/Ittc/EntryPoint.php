@@ -7,8 +7,8 @@ class EntryPoint
     private $method;
     private $routes;
 
-    // 생성자 인수에 타입힌트를 지정
-    public function __construct(string $route, string $method, \Ijdb\IjdbRoutes $routes)
+    // 생성자 인수에 타입힌트를 지정 -> 인터페이스로 타입힌트를 지정한다
+    public function __construct(string $route, string $method, \Ittc\Routes $routes)
     {
         $this->route = $route;
         $this->method = $method;
