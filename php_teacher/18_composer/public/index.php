@@ -1,4 +1,5 @@
 <?php
+//   echo phpinfo(); die;
 try{
     include __DIR__ . '/../includes/autoload.php';
     
