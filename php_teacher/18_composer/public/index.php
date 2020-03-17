@@ -5,8 +5,8 @@ try{
     
     $route = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
     
-    // namespace Ittc; namespace Ijdb; 네임스페이스 사용
-    $entryPoint = new \Ittc\EntryPoint($route, new \Ijdb\IjdbRoutes());
+    // EntryPoint 생성자로 $method를 전달한다
+    $entryPoint = new \Ittc\EntryPoint($route, $_SERVER['REQUEST_METHOD'], new \Ijdb\IjdbRoutes());
     $entryPoint->run();
 
 }catch (\PDOException $e){
