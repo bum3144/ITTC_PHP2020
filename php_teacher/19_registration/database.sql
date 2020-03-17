@@ -152,3 +152,14 @@ VALUES ('I dreamed I was forced to eat a giant marshmallow. When I woke up, my p
     -- DELETE `jokecategory` TABLE
     DROP TABLE IF EXISTS `jokecategory`;
 --------------------------------------------------------------------------
+
+    
+-- 19. author table 없다면 다시 만들자
+CREATE TABLE `author` (
+    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `name` VARCHAR(255),
+    `email` VARCHAR(255)
+) DEFAULT CHARACTER SET utf8 ENGINE=InnoDB;
+
+-- author Table에 password 컬럼을 추가한다
+ALTER TABLE author ADD COLUMN password VARCHAR(255);
