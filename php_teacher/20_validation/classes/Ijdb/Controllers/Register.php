@@ -41,6 +41,16 @@ class Register{
         }elseif(filter_var($author['email'], FILTER_VALIDATE_EMAIL) == false){
             $valid = false;
             $errors[] = 'Invalid email address.';
+        }else{ // 이메일 주소가 비어있지 않고 유효하다면
+
+            // 이메일 주소를 소문자로 변환ㄴ
+            $author['email'] = strtolow[$author['email']];
+
+            // $author['email']을 소문자로 검색
+            if(count($this->authorsTable->find('email', $author['email'])) > 0) {
+                $valid = false;
+                $errors[] = 'Already registered email address.';
+            }
         }
         if(empty($author['password'])){
             $valid = false;
@@ -49,6 +59,7 @@ class Register{
 
         // $valid 가 ture이면 데이터를 추가할 수 있음
         if($valid === true){
+            // form이 전송되면 $author변수는 소문자 이메일과 비밀번호 해시값을 포함
             $this->authorsTable->save($author);
             
             header('Location: /author/success');
