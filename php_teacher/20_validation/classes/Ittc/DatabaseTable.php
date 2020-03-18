@@ -32,15 +32,29 @@ class DatabaseTable
     /* get the table data by ID */
     public function findById($value){
         $query = 'SELECT * FROM `' . $this->table . '` 
-            WHERE `' . $this->primaryKey . '` = :value';
+            WHERE `' . $this->primaryKey . '` = :primaryKey';
 
         $parameters = [
-            'value' => $value
+            'primaryKey' => $value
         ];
 
         $query = $this->query($query, $parameters);
 
         return $query->fetch();
+    }
+
+    /* email 중복 체크를 위한 쿼리 */
+    public function find($column, $value)
+    {
+        $query = 'SELECT * FROM '. $this->table . ' WHERE ' . $column . ' = :value';
+
+        $parameters = [
+            'value' => $value
+        ];
+
+        $query = $this->query($qudry, $parameters);
+
+        return $query->fetchAll();
     }
 
     /* insert table data */
