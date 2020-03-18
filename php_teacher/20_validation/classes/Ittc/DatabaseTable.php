@@ -52,7 +52,7 @@ class DatabaseTable
             'value' => $value
         ];
 
-        $query = $this->query($qudry, $parameters);
+        $query = $this->query($query, $parameters);
 
         return $query->fetchAll();
     }
