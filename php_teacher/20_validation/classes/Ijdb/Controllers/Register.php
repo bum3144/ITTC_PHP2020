@@ -44,7 +44,7 @@ class Register{
         }else{ // 이메일 주소가 비어있지 않고 유효하다면
 
             // 이메일 주소를 소문자로 변환ㄴ
-            $author['email'] = strtolow[$author['email']];
+            $author['email'] = strtolower($author['email']);
 
             // $author['email']을 소문자로 검색
             if(count($this->authorsTable->find('email', $author['email'])) > 0) {
@@ -59,6 +59,10 @@ class Register{
 
         // $valid 가 ture이면 데이터를 추가할 수 있음
         if($valid === true){
+
+            // 데이터베이스에 저장하기 전에 비밀번호를 해시화
+            $author['password'] = password_hash($author['password'], PASSWORD_DEFAULT);
+
             // form이 전송되면 $author변수는 소문자 이메일과 비밀번호 해시값을 포함
             $this->authorsTable->save($author);
             
