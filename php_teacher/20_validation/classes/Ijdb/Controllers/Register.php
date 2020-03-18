@@ -33,15 +33,18 @@ class Register{
         // 항목이 비었으면 false
         if(empty($author['name'])){
             $valid = false;
-            $errors[] = 'please input your name';
+            $errors[] = 'please input your name.';
         }
         if(empty($author['email'])){
             $valid = false;
-            $errors[] = 'please input your email';
+            $errors[] = 'please input your email.';
+        }elseif(filter_var($author['email'], FILTER_VALIDATE_EMAIL) == false){
+            $valid = false;
+            $errors[] = 'Invalid email address.';
         }
         if(empty($author['password'])){
             $valid = false;
-            $errors[] = 'please input your password';
+            $errors[] = 'please input your password.';
         }
 
         // $valid 가 ture이면 데이터를 추가할 수 있음
