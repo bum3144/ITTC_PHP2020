@@ -27,7 +27,7 @@ $ sudo vi /etc/apache2/sites-available/000-default.conf
 sudo systemctl restart apache2  
 ```
   
-> 19_registration 390 CMS-EntryPoint-namespaces-Router  
+> 20_validation 400 Registration-Validation-Email  
   
 author Table -> password COLUMN 추가  
 Register class 생성, register.html.php 생성, registersuccess.html.php 생성  
@@ -41,3 +41,12 @@ Register.php -> registerUser() 메서드 추가
 
 $author['name'] =='' 조건은 누군가 악의적으로 POST 요청을 조작하면 오류메시지를 사용해 중요한 정보가 노출된다.  
 empty($author['name'])은 name 키가 없어도 오류를 내지않고 단순히 false를 반환한다  
+
+# Validation
+email 중복 체크를 위한 쿼리 - DatabaseTable.php
+email 중복 체크, 빈칸 체크
+password - one way hashing function
+password_hash(), password_verify()
+PASSWORD_DEFAULT 기본 알고리즘
+> 데이터베이스에 저장하기 전에 비밀번호를 해시화
+> $author['password'] = password_hash($author['password'], PASSWORD_DEFAULT);
