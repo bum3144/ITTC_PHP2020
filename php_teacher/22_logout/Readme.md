@@ -117,3 +117,6 @@ if ($_SESSION['visits'] > 1) {
     echo "(SESSION) 웹사이트에 오신 걸 환영합니다. 둘러보려면 여기를 클릭하세요!";
 }
 ```
+isLoggedIn() 함수는 로그인 사용자가 접근할 때만 참을 반환
+Authentication 클래스로 로그인 여부를 검사
+EntryPoint.php 사용자 로그인 상태를 판단
