@@ -51,7 +51,7 @@ setcookie ( string $name [, string $value = "" [, int $expires = 0 [
 - www.example.com, support.example.com 등 여러 도메인에 사용하려면 '.example.com'을 지정하여 쿠키를 공유하도록 허용한다. 
 - **secure** 인수를 1로 지정하면 SSL(secure socket layer) 접속, 즉 https:// 로 시작하는 URL을 요청할 때만 쿠키를 전송
 - **httpOnly** 인수를 1로 지정하면 브라우저와 자바스크립트가 쿠키에 접근할 수 없다. 일반적으로 자바스크립트는 현재 페이지에 설정된 쿠키를 읽고 다양한 방식으로 활용한다. 혹여 쿠키 데이터에 민감한 개인정보가 담겨 있다면 막대한 피해를 입는다. httpOnly를 1로 설정하면 PHP 스크립트는 평소와 똑같이 쿠키를 브라우저로 전송하지만 브라우저의 자바스크립트는 쿠키를 볼 수 없다.
-> **name**을 제외한 모든 인수는 생략할 수 있다. 그러나 인수에 값을 지정하려면ㄴ 그 앞에 선언된 모든 인수에 값을 지정해야 한다. 예로 domain 인수를 지정하려면 expiryTime 인수도 값을 지정해야 한다. 이때 문자열 인수 (value, path, domain)는 빈 문자열을, 숫자 인수(expiryTime, secure)는 0을 전달하면 인수 생략과 같은 효과를 낸다.f
+- **name**을 제외한 모든 인수는 생략할 수 있다. 그러나 인수에 값을 지정하려면ㄴ 그 앞에 선언된 모든 인수에 값을 지정해야 한다. 예로 domain 인수를 지정하려면 expiryTime 인수도 값을 지정해야 한다. 이때 문자열 인수 (value, path, domain)는 빈 문자열을, 숫자 인수(expiryTime, secure)는 0을 전달하면 인수 생략과 같은 효과를 낸다.f
 
 - 쿠키 삭제하기
 1)setcookie('Name');
@@ -78,23 +78,23 @@ if($visits > 1){
 
 
 # session
-> php.ini 확인
+> php.ini 확인  
 ```
 session.save_handler = files;
 session.save_path = "/tmp"; 
 session.use_cookies = 1;
 ```
-session.save_path 는 세션 추적용 임시 파일이 저장될 경로다. 현재 디렉토리는 "/var/lib/php/sessions";
+session.save_path 는 세션 추적용 임시 파일이 저장될 경로다. 현재 디렉토리는 "/var/lib/php/sessions";  
 
-> 세션 시작
-session_start();
-> 세션 변수에 값을 할당
-$_SESSION['password'] = 'mypassword';
-> 세션 변수를 제거 **unset()** 함수
-unset($_SESSION['password']);
-> 세션을 마치고 모든 세션 변수를 삭제 **session_destroy()** 함수 
-$_SESSION = [];
-session_destroy();
+> 세션 시작  
+session_start();  
+> 세션 변수에 값을 할당  
+$_SESSION['password'] = 'mypassword';  
+> 세션 변수를 제거 **unset()** 함수  
+unset($_SESSION['password']);  
+> 세션을 마치고 모든 세션 변수를 삭제 **session_destroy()** 함수   
+$_SESSION = [];  
+session_destroy();  
 
 ex)
 ```
