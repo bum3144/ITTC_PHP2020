@@ -5,8 +5,7 @@ use \Ittc\DatabaseTable;
 class Register{
     private $authorsTable;
 
-    public function __construct(DatabaseTable $authorsTable)
-    {
+    public function __construct(DatabaseTable $authorsTable) {
         $this->authorsTable = $authorsTable;
     }
 
@@ -22,8 +21,7 @@ class Register{
             'title' => 'Successful Registration'];
     }
 
-    public function registerUser()
-    {
+    public function registerUser() {
         $author = $_POST['author'];
 
         // 데이터는 처음부터 유효하다고 가정
