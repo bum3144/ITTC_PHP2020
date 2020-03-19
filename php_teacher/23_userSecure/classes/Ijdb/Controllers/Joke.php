@@ -61,10 +61,15 @@ class Joke {
         header('Location: /joke/list');
     }
 
-    // 폼 표시 메서드와 폼 처리 메서드로 코드 분리한다
-    // 폼 표시 메서드 saveEdit(), 처리 메서드 edit()
     public function saveEdit(){
         $author = $this->authentication->getUser();
+
+        if(isset($_GET['id'])){
+            $joke = $this->jokeTable->findById($_GET['id']);
+            if($joke['authorId'] != $author['id']){
+                return;
+            }
+        }
 
         $joke = $_POST['joke'];
         $joke['jokedate'] = new \DateTime();
