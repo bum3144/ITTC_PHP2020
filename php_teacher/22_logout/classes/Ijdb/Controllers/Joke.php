@@ -1,14 +1,19 @@
 <?php
 namespace Ijdb\Controllers;
 use \Ittc\DatabaseTable;
+use \Ittc\Authentication;
 
 class Joke {
     private $authorsTable;
     private $jokesTable;
+    private $authentication;
 
-	public function __construct(DatabaseTable $jokesTable, DatabaseTable $authorsTable) {
+    public function __construct(DatabaseTable $jokesTable, 
+                                DatabaseTable $authorsTable,
+                                Authentication $authentication) {
         $this->jokesTable = $jokesTable;
         $this->authorsTable = $authorsTable;
+        $this->authentication = $authentication;
     }
 
     public function list(){
@@ -31,6 +36,8 @@ class Joke {
 
         $totalJokes = $this->jokesTable->total();
 
+
+        
         return ['template' => 'jokes.html.php', 
                 'title' => $title,
                 'variables' => [
@@ -55,10 +62,11 @@ class Joke {
     // 폼 표시 메서드와 폼 처리 메서드로 코드 분리한다
     // 폼 표시 메서드 saveEdit(), 처리 메서드 edit()
     public function saveEdit(){
+        $author = $this->authentication->getUser();
 
         $joke = $_POST['joke'];
         $joke['jokedate'] = new \DateTime();
-        $joke['authorid'] = 1;
+        $joke['authorid'] = $author['id'];
 
         $this->jokesTable->save($joke);
 
@@ -87,6 +95,3 @@ class Joke {
 
 }
 
-
-
-?>
