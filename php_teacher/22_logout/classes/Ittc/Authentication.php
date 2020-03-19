@@ -43,6 +43,16 @@ class Authentication{
             return false;
         }
     }
+
+    public function getUser()   // 로그인 사용자의 ID를 구하려면
+    {
+        if($this->isLoggedIn()){
+            return $this->users->find($this->usernameColumn, strtolower($_SESSION['username']))[0];
+        }else{
+            return false;
+        }
+    }
+
 }
 
 ?>
