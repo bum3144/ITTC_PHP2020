@@ -78,6 +78,8 @@ class Joke {
 
     public function edit()
     {
+        $author = $this->authentication -> getUser();
+
         if (isset($_GET['id'])){                
             $joke = $this->jokesTable->findById($_GET['id']);
         }
@@ -87,7 +89,8 @@ class Joke {
         return ['template' => 'editjoke.html.php',
             'title' => $title,
             'variables' => [
-                'joke' => $joke ?? null
+                'joke' => $joke ?? null,
+                'userId' => $author['id'] ?? null 
             ]
         ];
     }
