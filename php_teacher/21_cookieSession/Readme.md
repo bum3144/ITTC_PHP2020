@@ -30,7 +30,13 @@ sudo systemctl restart apache2
 email 중복 체크를 위한 쿼리 - DatabaseTable.php  
 email 중복 체크, 빈칸 체크  
 password - one way hashing function  
-password_hash(), password_verify()  
+password_hash() - 원하는 문자열을 암호화
+password_verify() - 복호화는 간단합니다. ( 암호화된 문자를 푼다는 의미 )
+대신 복호화된 문자를 볼 순 없고 비교만 가능합니다. 비교하여 true 또는 false 를 반환합니다.
+
+> password_verify('비교할 문자', $hash);
+
+이런식으로 하면 됩니다.
 PASSWORD_DEFAULT 기본 알고리즘  
 > 데이터베이스에 저장하기 전에 비밀번호를 해시화  
 > $author['password'] = password_hash($author['password'], PASSWORD_DEFAULT);  
