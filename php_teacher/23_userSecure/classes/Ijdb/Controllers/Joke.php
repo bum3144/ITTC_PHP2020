@@ -6,7 +6,6 @@ use \Ittc\Authentication;
 class Joke {
     private $authorsTable;
     private $jokesTable;
-    private $authentication;
 
     public function __construct(DatabaseTable $jokesTable, 
                                 DatabaseTable $authorsTable,
@@ -36,8 +35,8 @@ class Joke {
         $title = 'Joke Post List';
 
         $totalJokes = $this->jokesTable->total();
-
-
+        
+        $author = $this->authentication->getUser();
         
         return ['template' => 'jokes.html.php', 
                 'title' => $title,
@@ -63,7 +62,7 @@ class Joke {
         if($joke['authorId'] != $author['id']){
             return;
         }
-        
+
         $this->jokesTable->delete($_POST['id']);
 
         header('Location: /joke/list');
