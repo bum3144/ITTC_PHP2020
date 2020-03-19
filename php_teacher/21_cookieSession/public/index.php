@@ -1,5 +1,5 @@
 <?php
-//   echo phpinfo(); die;
+   echo phpinfo(); die;
 
 if(!isset($_COOKIE['visits'])){
     $_COOKIE['visits'] = 0;
