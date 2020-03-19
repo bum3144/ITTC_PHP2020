@@ -18,7 +18,7 @@ class IjdbRoutes implements \Ittc\Routes {
     
     // callAction() 메서드명을 getRoutes()고치고 함수 $route 인수를 제거한다음 return문을 추가해 $route를 반환한다.
     public function getRoutes(): array {
-        $jokeController = new \Ijdb\Controllers\Joke($this->jokesTable, $this->authorsTable);
+        $jokeController = new \Ijdb\Controllers\Joke($this->jokesTable, $this->authorsTable, $this->authentication);
         $authorController = new \Ijdb\Controllers\Register($this->authorsTable);
 
         $loginController = new \Ijdb\Controllers\Login($this->authentication);
