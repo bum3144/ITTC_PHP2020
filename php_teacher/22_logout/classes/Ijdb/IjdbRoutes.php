@@ -87,6 +87,12 @@ class IjdbRoutes implements \Ittc\Routes {
                     'action' => 'processLogin'
                 ]
             ],
+            'logout' => [
+                'GET' => [
+                    'controller' => $loginController,
+                    'action' => 'logout'
+                ]
+            ],
             '' => [
                 'GET' => [
                     'controller' => $jokeController,
