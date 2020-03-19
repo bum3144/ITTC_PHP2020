@@ -29,7 +29,7 @@ class Joke {
                 'jokedate' => $joke['jokedate'],
                 'name' => $author['name'],
                 'email' => $author['email'],
-                'authorId' => $author['id']
+                'authorId' => $author['id']   // 사용자 권한을 확인 위해 id 추가
             ];
         }
 
@@ -43,7 +43,8 @@ class Joke {
                 'title' => $title,
                 'variables' => [
                         'totalJokes' => $totalJokes,
-                        'jokes' => $jokes
+                        'jokes' => $jokes,
+                        'userId' => $author['id'] ?? null   // 사용자 권한을 확인 위해 id 전달
                     ]
                 ];
     }
