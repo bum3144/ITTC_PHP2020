@@ -12,7 +12,7 @@ class IjdbRoutes implements \Ittc\Routes {
         include __DIR__ . '/../../includes/DatabaseConnection.php';
      
         $this->jokesTable = new \Ittc\DatabaseTable($pdo, 'joke', 'id');
-        $this->authorsTable = new \Ittc\DatabaseTable($pdo, 'author', 'id');
+        $this->authorsTable = new \Ittc\DatabaseTable($pdo, 'author', 'id', '\Ijdb\Entity\Author', [$this->jokesTable]);
         $this->authentication = new \Ittc\Authentication($this->authorsTable, 'email', 'password');
     }
     
