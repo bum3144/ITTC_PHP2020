@@ -57,7 +57,7 @@ class Joke {
     public function delete(){
         $author = $this->authentication->getUser();
 
-        $joke = $this->jokeTable->findById($_GET['id']);
+        $joke = $this->jokeTable->findById($_POST['id']);
 
         if($joke['authorId'] != $author['id']){
             return;
@@ -90,7 +90,7 @@ class Joke {
 
     public function edit()
     {
-        $author = $this->authentication -> getUser();
+        $author = $this->authentication->getUser();
 
         if (isset($_GET['id'])){                
             $joke = $this->jokesTable->findById($_GET['id']);

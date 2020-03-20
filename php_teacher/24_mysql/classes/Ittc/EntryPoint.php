@@ -11,8 +11,8 @@ class EntryPoint
     public function __construct(string $route, string $method, \Ittc\Routes $routes)
     {
         $this->route = $route;
-        $this->method = $method;
         $this->routes = $routes;
+        $this->method = $method;
         $this->checkUrl();
     }
 
@@ -55,11 +55,10 @@ class EntryPoint
                 $output = $this->loadTemplate($page['template']);
             }
     
-            echo $this->loadTemplate('layout.html.php', [
-                'loggedIn' => $authentication->isLoggedIn(),
-                'output' => $output,
-                'title' => $title
-            ]);
+            echo $this->loadTemplate('layout.html.php', ['loggedIn' => $authentication->isLoggedIn(),
+                                                         'output' => $output,
+                                                         'title' => $title
+                                                        ]);
         }
     }
 }
