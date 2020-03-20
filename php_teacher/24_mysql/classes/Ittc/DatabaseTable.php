@@ -6,13 +6,18 @@ class DatabaseTable
     private $pdo;
     private $table;
     private $primaryKey;
+    private $className;
+    private $constructorArgs;
 
-    // 타입힌트를 지정하려면 변수명 앞에 타입명을 쓴다.
-    // 네임스페이스 구조상 PDO객체를 사용하려면 맨앞에 \PDO $pdo로 서야 해당 클래스를 가리킬 수 있다
-    public function __construct(\PDO $pdo, string $table, string $primaryKey){
+    // stdClass는 php 내장 클래스며 빈 클래스다. 간단한 데이터를 저장하는 용도로 쓴다.
+    // 클래스명 인수를 생략하면 기본적으로 stdClass가 저장된다
+    public function __construct(\PDO $pdo, string $table, string $primaryKey, 
+        string $className = '\stdClass', array $constructorArgs = []){
         $this->pdo = $pdo;
         $this->table = $table;
         $this->primaryKey = $primaryKey;
+        $this->className = $className;
+        $this->constructorArgs = $constructorArgs;
     }
 
     /* query */ 
@@ -31,16 +36,16 @@ class DatabaseTable
 
     /* get the table data by ID */
     public function findById($value){
-        $query = 'SELECT * FROM `' . $this->table . '` 
-            WHERE `' . $this->primaryKey . '` = :primaryKey';
+        $query = 'SELECT * FROM `' . $this->table . '` WHERE `' . $this->primaryKey . '` = :value';
 
         $parameters = [
-            'primaryKey' => $value
+            'value' => $value
         ];
 
         $query = $this->query($query, $parameters);
 
-        return $query->fetch();
+        // return $query->fetch();
+        return $query->fetchObject($this->className, $this->constructorArgs);
     }
 
     /* email 중복 체크를 위한 쿼리 */
@@ -54,7 +59,7 @@ class DatabaseTable
 
         $query = $this->query($query, $parameters);
 
-        return $query->fetchAll();
+        return $query->fetchAll(\PDO::FETCH_CLASS, $this->className, $this->constructorArgs);
     }
 
     /* insert table data */
@@ -115,7 +120,7 @@ class DatabaseTable
     public function findAll(){
         $result = $this->query('SELECT * FROM ' . $this->table);
 
-        return $result->fetchAll();
+        return $result->fetchAll(\PDO::FETCH_CLASS, $this->className, $this->constructorArgs);
     }
 
     /* date type */

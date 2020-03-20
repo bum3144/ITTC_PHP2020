@@ -17,12 +17,12 @@ class Authentication{
     public function login($username, $password)
     {
         $user = $this->users->find($this->usernameColumn, strtolower($username));
-
-        if(!empty($user) && password_verify($password, $user[0][$this->passwordColumn])){
+                                                                // $user[0]->{$this->passwordColumn} - {중가로} 안을 먼저 해석한다
+        if(!empty($user) && password_verify($password, $user[0]->{$this->passwordColumn})){
             // 사용자에게 임의의 신규 세션 ID를 할당
             session_regenerate_id(); 
             $_SESSION['username'] = $username;
-            $_SESSION['password'] = $user[0][$this->passwordColumn];
+            $_SESSION['password'] = $user[0]->{$this->passwordColumn};
             return true;
         }else{
             return false;
@@ -37,7 +37,9 @@ class Authentication{
 
         $user = $this->users->find($this->usernameColumn, strtolower($_SESSION['username']));
 
-        if(!empty($user) && $user[0][$this->passwordColumn] === $_SESSION['password']){
+        $passwordColumn = $this->passwordColumn;
+                            // $user[0]->password
+        if(!empty($user) && $user[0]->$passwordColumn === $_SESSION['password']){
             return true;
         }else{
             return false;
