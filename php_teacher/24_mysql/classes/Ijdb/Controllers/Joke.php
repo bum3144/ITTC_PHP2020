@@ -28,7 +28,7 @@ class Joke {
                 'jokedate' => $joke['jokedate'],
                 'name' => $author['name'],
                 'email' => $author['email'],
-                'authorId' => $author['id']   // 사용자 권한을 확인 위해 id 추가
+                'authorid' => $author['id']   // 사용자 권한을 확인 위해 id 추가
             ];
         }
 
@@ -59,7 +59,7 @@ class Joke {
 
         $joke = $this->jokeTable->findById($_POST['id']);
 
-        if($joke['authorId'] != $author['id']){
+        if($joke['authorid'] != $author['id']){
             return;
         }
 
@@ -71,21 +71,12 @@ class Joke {
     public function saveEdit(){
         $author = $this->authentication->getUser();
 
-        if(isset($_GET['id'])){
-            $joke = $this->jokeTable->findById($_GET['id']);
-            if($joke['authorId'] != $author['id']){
-                return;
-            }
-        }
-
         $joke = $_POST['joke'];
         $joke['jokedate'] = new \DateTime();
-        $joke['authorid'] = $author['id'];
 
-        $this->jokesTable->save($joke);
+        $author->addJoke($joke);
 
         header('location: /joke/list');
-
     }
 
     public function edit()
