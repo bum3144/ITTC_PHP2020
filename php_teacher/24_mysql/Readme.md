@@ -12,7 +12,7 @@ ijdb : 백업할 스키마
 경로 없이 파일명만 지정하여 실행하면 실행한 디렉터리에 백업 파일이 생성된다.  
 /var/backups/ijdb.sql 처럼 전체경로를 지정해되 된다 .
 
-**mysqlpump** 데이터베이스 복원 명령 
+**mysql** 데이터베이스 복원 명령 
 ```
 mysql -u ijdbuser -pmypassword ijdb < 20200320Ijdb.sql
 ```
