@@ -112,3 +112,26 @@ CREATE TABLE joke (
 ```
 ALTER TABLE joke ADD FOREIGN KEY (authorId) REFERENCES author (id)
 ```
+
+# 참조변수
+- 참조변수는 일반변수와 다르며 윈도우의 바로가기나 리눅스의 심링크symlink와 비슷하다.
+- 참조변수를 생성하려면 앰퍼샌드문자&를 붙인다
+ex)
+```
+$originalVariable = 1;
+$reference = &$originalVariable;
+$originalVariable = 2;
+echo $reference;
+```
+# 투명 캐싱 (transparent caching)
+- 캐싱은 데이터를 저장했다가 나중에 빠르게 접근하는 기능으로, 겉으로 봤을 때 내부적으로 캐싱 과정을 알 필요가 없어 투명 캐싱이라 한다
+
+# 카테고리
+- 카테고리 테이블 쿼리 
+```
+CREATE TABLE `ijdb`.`category` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(255) NULL,
+    PRIMARY KEY (`id`));
+)
+```

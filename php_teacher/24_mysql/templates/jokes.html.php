@@ -1,22 +1,24 @@
-<p>There are [ <?=$variables['totalJokes'];?> ] joke posts.</p> 
-<?php foreach ($jokes as $jk): ?>
+<p>There are [ <?=$totalJokes?> ] joke posts.</p> 
+<?php foreach ($jokes as $joke): ?>
 <blockquote> 
     <p>
-    <?=htmlspecialchars($jk['joketext'], ENT_QUOTES, 'UTF-8');?>
+    <?=htmlspecialchars($joke->joketext, ENT_QUOTES, 'UTF-8');?>
 
-    (Author: <a href="mailto:<?=htmlspecialchars($jk['email'], ENT_QUOTES, 'UTF-8');?>">
-    <?=htmlspecialchars($jk['name'], ENT_QUOTES, 'UTF-8');?></a>
+    (Author: <a href="mailto:<?=htmlspecialchars($joke->getAuthor()->email, ENT_QUOTES,
+                    'UTF-8'); ?>">
+                <?=htmlspecialchars($joke->getAuthor()->name, ENT_QUOTES,
+                    'UTF-8'); ?></a> 
         Post date: 
         <?php
-            $date = new DateTime($jk['jokedate']);
+            $date = new DateTime($joke->jokedate);
             
             echo $date->format('jS F Y');
         ?>)
 
-    <?php if ($userId == $jk['authorId']): ?>
-        <a href="/joke/edit?id=<?=$jk['id'];?>">EDIT</a>
+    <?php if ($userId == $joke->authorId): ?>
+        <a href="/joke/edit?id=<?=$joke->id;?>">EDIT</a>
         <form action="/joke/delete" method="post">
-            <input type="hidden" name="id" value="<?=$jk['id'];?>">
+            <input type="hidden" name="id" value="<?=$joke->id;?>">
             <input type="submit" value="DEL">
         </form>
     <?php endif; ?>

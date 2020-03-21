@@ -5,8 +5,8 @@ class Login{
     private $authentication;
 
     public function __construct(\Ittc\Authentication $authentication) {
-        $this->authentication = $authentication;
-    }
+		$this->authentication = $authentication;
+	}
 
     public function loginForm() {
         return ['template' => 'login.html.php', 'title' => 'Log In'];

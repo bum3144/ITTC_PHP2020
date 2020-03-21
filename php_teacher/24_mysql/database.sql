@@ -163,3 +163,13 @@ CREATE TABLE `author` (
 
 -- author Table에 password 컬럼을 추가한다
 ALTER TABLE author ADD COLUMN password VARCHAR(255);
+
+
+
+-- 카테고리 테이블 쿼리 체크
+CREATE TABLE `ijdb`.`category` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(255) NULL,
+    PRIMARY KEY (`id`));
+)
+

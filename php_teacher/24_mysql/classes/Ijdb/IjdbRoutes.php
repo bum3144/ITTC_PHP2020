@@ -1,27 +1,27 @@
 <?php
 namespace Ijdb;
 
-// IjdbRoutes가 인터페이스를 상속하도록 implements를 지정해야 한다.
 class IjdbRoutes implements \Ittc\Routes {
     private $authorsTable;
     private $jokesTable;
+    private $categoriesTable;
     private $authentication;
 
-    public function __construct()
-    {
+    public function __construct()    {
         include __DIR__ . '/../../includes/DatabaseConnection.php';
      
-        $this->jokesTable = new \Ittc\DatabaseTable($pdo, 'joke', 'id');
-        $this->authorsTable = new \Ittc\DatabaseTable($pdo, 'author', 'id', '\Ijdb\Entity\Author', [$this->jokesTable]);
+        $this->jokesTable = new \Ittc\DatabaseTable($pdo, 'joke', 'id', '\Ijdb\Entity\Joke', [&$this->authorsTable]);
+        $this->authorsTable = new \Ittc\DatabaseTable($pdo, 'author', 'id', '\Ijdb\Entity\Author', [&$this->jokesTable]);
+        $this->categoriesTable = new \Ittc\DatabaseTable($pdo, 'category', 'id');
         $this->authentication = new \Ittc\Authentication($this->authorsTable, 'email', 'password');
     }
     
     // callAction() 메서드명을 getRoutes()고치고 함수 $route 인수를 제거한다음 return문을 추가해 $route를 반환한다.
     public function getRoutes(): array {
-        $jokeController = new \Ijdb\Controllers\Joke($this->jokesTable, $this->authorsTable, $this->authentication);
-        $authorController = new \Ijdb\Controllers\Register($this->authorsTable);
-
-        $loginController = new \Ijdb\Controllers\Login($this->authentication);
+        $jokeController = new \Ijdb\Controllers\Joke($this->jokesTable, $this->authorsTable, $this->categoriesTable, $this->authentication);
+		$authorController = new \Ijdb\Controllers\Register($this->authorsTable);
+		$loginController = new \Ijdb\Controllers\Login($this->authentication);
+		$categoryController = new \Ijdb\Controllers\Category($this->categoriesTable);
 
         $routes = [
             'author/register' => [
@@ -85,12 +85,37 @@ class IjdbRoutes implements \Ittc\Routes {
             'login' => [
                 'GET' => [
                     'controller' => $loginController,
-                    'action' => 'loginform'  
+                    'action' => 'loginForm'  
                 ],
                 'POST' => [
                     'controller' => $loginController,
                     'action' => 'processLogin'
                 ]
+            ],
+            'category/edit' => [
+                'POST' => [
+                    'controller' => $categoryController,
+                    'action' => 'saveEdit'
+                ],
+                'GET' => [
+                    'controller' => $categoryController,
+                    'action' => 'edit'
+                ],
+                'login' => true
+            ],
+            'category/delete' => [
+                'POST' => [
+                    'controller' => $categoryController,
+                    'action' => 'delete'
+                ],
+                'login' => true
+            ],
+            'category/list' => [
+                'GET' => [
+                    'controller' => $categoryController,
+                    'action' => 'list'
+                ],
+                'login' => true
             ],
             '' => [
                 'GET' => [
@@ -109,6 +134,3 @@ class IjdbRoutes implements \Ittc\Routes {
     }
     
 }
-
-
-?>

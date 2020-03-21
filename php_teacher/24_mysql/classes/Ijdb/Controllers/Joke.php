@@ -4,49 +4,38 @@ use \Ittc\DatabaseTable;
 use \Ittc\Authentication;
 
 class Joke {
-    private $authorsTable;
-    private $jokesTable;
+	private $authorsTable;
+	private $jokesTable;
+	private $categoriesTable;
+	private $authentication;
 
-    public function __construct(DatabaseTable $jokesTable, 
-                                DatabaseTable $authorsTable,
-                                Authentication $authentication) {
-        $this->jokesTable = $jokesTable;
-        $this->authorsTable = $authorsTable;
-        $this->authentication = $authentication;
-    }
+	public function __construct(DatabaseTable $jokesTable, DatabaseTable $authorsTable, DatabaseTable $categoriesTable, Authentication $authentication) {
+		$this->jokesTable = $jokesTable;
+		$this->authorsTable = $authorsTable;
+		$this->categoriesTable = $categoriesTable;
+		$this->authentication = $authentication;
+	}
+
 
     public function list(){
-        $result = $this->jokesTable->findAll();
-
-        $jokes = [];
-        foreach($result as $joke){
-            $author = $this->authorsTable->findById($joke['authorid']);
-
-            $jokes[] = [
-                'id' => $joke['id'],
-                'joketext' => $joke['joketext'],
-                'jokedate' => $joke['jokedate'],
-                'name' => $author['name'],
-                'email' => $author['email'],
-                'authorid' => $author['id']   // 사용자 권한을 확인 위해 id 추가
-            ];
-        }
+        $jokes = $this->jokesTable->findAll();
 
         $title = 'Joke Post List';
 
-        $totalJokes = $this->jokesTable->total();
-        
-        $author = $this->authentication->getUser();
-        
-        return ['template' => 'jokes.html.php', 
-                'title' => $title,
-                'variables' => [
-                        'totalJokes' => $totalJokes,
-                        'jokes' => $jokes,
-                        'userId' => $author['id'] ?? null   // 사용자 권한을 확인 위해 id 전달
-                    ]
-                ];
-    }
+		$totalJokes = $this->jokesTable->total();
+
+		$author = $this->authentication->getUser();
+
+		return ['template' => 'jokes.html.php', 
+				'title' => $title, 
+				'variables' => [
+						'totalJokes' => $totalJokes,
+						'jokes' => $jokes,
+						'userId' => $author->id ?? null
+					]
+				];
+	}
+
 
     public function home(){
         $title = 'Internet Joke World';
@@ -54,52 +43,52 @@ class Joke {
         return ['template' => 'home.html.php', 'title' => $title];
     }
 
-    public function delete(){
-        $author = $this->authentication->getUser();
+	public function delete() {
 
-        $joke = $this->jokeTable->findById($_POST['id']);
+		$author = $this->authentication->getUser();
 
-        if($joke['authorid'] != $author['id']){
+		$joke = $this->jokesTable->findById($_POST['id']);
+
+		if ($joke->authorId != $author->id) { // $author, $joke는 더이상 배열이 아니므로 객체 문법으로 수정
             return;
         }
+		
 
-        $this->jokesTable->delete($_POST['id']);
+		$this->jokesTable->delete($_POST['id']);
 
-        header('Location: /joke/list');
-    }
+		header('location: /joke/list'); 
+	}
 
-    public function saveEdit(){
-        $author = $this->authentication->getUser();
+	public function saveEdit() {
+		$author = $this->authentication->getUser();
 
-        $joke = $_POST['joke'];
-        $joke['jokedate'] = new \DateTime();
+		$joke = $_POST['joke'];
+		$joke['jokedate'] = new \DateTime();
 
-        $author->addJoke($joke);
+		$author->addJoke($joke);
 
-        header('location: /joke/list');
-    }
+		header('location: /joke/list'); 
+	}
 
-    public function edit()
-    {
-        $author = $this->authentication->getUser();
+	public function edit() {
+		$author = $this->authentication->getUser();
+		$categories = $this->categoriesTable->findAll();
 
-        if (isset($_GET['id'])){                
-            $joke = $this->jokesTable->findById($_GET['id']);
-        }
+		if (isset($_GET['id'])) {
+			$joke = $this->jokesTable->findById($_GET['id']);
+		}
         
         $title = 'Edit joke post';
-            
-        return ['template' => 'editjoke.html.php',
-            'title' => $title,
-            'variables' => [
-                'joke' => $joke ?? null,
-                'userId' => $author['id'] ?? null 
-            ]
-        ];
-    }
-        
-    
 
-
+		return ['template' => 'editjoke.html.php',
+				'title' => $title,
+				'variables' => [
+						'joke' => $joke ?? null,
+						'userId' => $author->id ?? null,
+						'categories' => $categories
+					]
+				];
+	}
+	
 }
 

@@ -36,7 +36,7 @@ class Register{
         if(empty($author['email'])){
             $valid = false;
             $errors[] = 'please input your email.';
-        }elseif(filter_var($author['email'], FILTER_VALIDATE_EMAIL) == false){
+        }else if(filter_var($author['email'], FILTER_VALIDATE_EMAIL) == false){
             $valid = false;
             $errors[] = 'Invalid email address.';
         }else{ // 이메일 주소가 비어있지 않고 유효하다면
