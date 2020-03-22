@@ -135,3 +135,21 @@ CREATE TABLE `ijdb`.`category` (
     PRIMARY KEY (`id`));
 )
 ```
+
+# ... 연산자 (언패킹 unpacking) or (스플랫 splat) 연산자
+$joke = new \Ijdb\Entity\Joke($authorsTable);
+Joke의 전체 클래스명은 \Ijdb\Entity\Joke 이며 $this->className 변수에 저장된다. 
+이 코드를 이렇게 바꿀수 있다. 두 코드는 똑같이 동작한다.   
+$joke = new $this->className($authorsTable);  
+그러나 엔티티 클래스는 생성자 인수의 종류와 갯수가 서로 다르다. 예를 들어 Author 엔티티 클래스는 $jokesTable 인스턴트를
+배열에 담아 생성자로 전달받고, $this->constructorArgs변수에 담는다.  
+**...** 연산자는 언패킹 unpacking 연산자 또는 스플랫 splat 연산자라 하며 여러 인수를 배열로 묶어 전달한다.  
+ex)  $array[1,2]; 
+someFunction(...$array);   
+이코드는   
+someFunction(1, 2); 와 똑같다.
+참고URL: https://blog.programster.org/php-splat-operator
+
+
+
+

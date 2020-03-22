@@ -20,6 +20,6 @@ class Author {
 
 		$joke['authorId'] = $this->id;
 
-		$this->jokesTable->save($joke);
+		return $this->jokesTable->save($joke);
 	}
 }

@@ -1,8 +1,7 @@
 <?php
 namespace Ittc;
 
-class DatabaseTable
-{
+class DatabaseTable {
     private $pdo;
     private $table;
     private $primaryKey;
@@ -76,6 +75,8 @@ class DatabaseTable
 		$fields = $this->processDates($fields);
 
 		$this->query($query, $fields);
+
+		return $this->pdo->lastInserId();
 	}
 
 
@@ -124,14 +125,26 @@ class DatabaseTable
 
 
 	public function save($record) {
+		// $entity = new $this->className($this->contructorArgs[0], $this->contructorArgs[1]); // ... splat operator
+		$entity = new $this->className(...$this->contructorArgs);
 		try {
 			if ($record[$this->primaryKey] == '') {
 				$record[$this->primaryKey] = null;
 			}
-			$this->insert($record);
+			$insertId = $this->insert($record);
+
+			$entity->{$this->primaryKey} = $insertId;
 		}
 		catch (\PDOException $e) {
-			$this->update( $record);
+			$this->update($record);
 		}
+
+		foreach ($record as $key => $value){
+			if (!empty($value)) {
+				$entity->$key = $value;	
+			}	
+		}
+
+		return $entity;
 	}
 }

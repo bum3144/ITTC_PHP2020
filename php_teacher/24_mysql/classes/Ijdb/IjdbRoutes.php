@@ -6,13 +6,16 @@ class IjdbRoutes implements \Ittc\Routes {
     private $jokesTable;
     private $categoriesTable;
     private $authentication;
+    private $jokeCategoriesTable;
 
     public function __construct()    {
         include __DIR__ . '/../../includes/DatabaseConnection.php';
      
-        $this->jokesTable = new \Ittc\DatabaseTable($pdo, 'joke', 'id', '\Ijdb\Entity\Joke', [&$this->authorsTable]);
+        $this->jokesTable = new \Ittc\DatabaseTable($pdo, 'joke', 'id', '\Ijdb\Entity\Joke', [&$this->authorsTable, &$this->jokeCategoriesTable]);
         $this->authorsTable = new \Ittc\DatabaseTable($pdo, 'author', 'id', '\Ijdb\Entity\Author', [&$this->jokesTable]);
         $this->categoriesTable = new \Ittc\DatabaseTable($pdo, 'category', 'id');
+        $this->jokeCategoriesTable = new \Ittc\DatabaseTable($pdo, 'jokecategory', 'categoryid');
+        // $this->jokeCategoriesTable = new \Ittc\DatabaseTable($pdo, 'joke_category', 'categoryId');
         $this->authentication = new \Ittc\Authentication($this->authorsTable, 'email', 'password');
     }
     

@@ -173,3 +173,8 @@ CREATE TABLE `ijdb`.`category` (
     PRIMARY KEY (`id`));
 )
 
+CREATE TABLE `joke_category` (
+    `jokeId` INT NOT NULL,
+    `categoryId` INT NOT NULL,
+    PRIMARY KEY (`jokeId`, `categoryId`)
+);
